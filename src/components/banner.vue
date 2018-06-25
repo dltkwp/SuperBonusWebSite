@@ -6,10 +6,10 @@
       </ol>
 
       <div class="carousel-inner" role="listbox">
-        <div class="item active">
-          <router-link to="/about/v_about">
-            <img src="@/assets/img/banner_1.jpg" alt="...">
-          </router-link>
+        <div class="item " :class="{active: index ==0}" v-for="(item,index) in advs" :key="index">
+            <a href="javascript:;;">
+              <img src="@/assets/img/banner_1.jpg" alt="...">
+            </a>
           <div class="carousel-caption"> </div>
         </div>
       </div>
@@ -27,8 +27,66 @@
 </template>
 
 <script>
-export default {
+import mtConst from '@/util/super-const.js'
 
+export default {
+    components: {
+
+    },
+    mounted() {
+        let _this = this
+        _this.queryProjects()
+    },
+    data() {
+        return {
+            advs: []
+        }
+    },
+    methods: {
+        queryProjects () {
+            let _this = this
+            try {
+                 _this.$axios
+                    .get("advs?client=pc")
+                    .then(result => {
+                        let data = result.data;
+                        if(data.length===0) {
+                            alert('空页面怎么处理')
+                        } else {
+                            let list = data
+                            _this.$lodash.forEach(list,function(item) {
+                                item.imgUrl = mtConst.IMAGE_STATIC_URL + item.images
+                            })
+                            _this.advs = list
+                        }
+                    })
+                    .catch(err => {});
+            } catch (error) {
+                console.error(error)
+            }
+        },
+        jumpUrl (index) {
+          let _this = this
+          let cur = _this.advs[index]
+          if  (index) {
+              let url = ''
+              switch (cur.type) {
+                case "product":{
+                    url = '?id=' + cur.href 
+                }break;
+                case "project":{
+                    url = '/join/v_detail?id=' + cur.href
+                }break;
+                case "custom":{
+
+                }break;
+              }
+
+              window.location.href = url 
+          }
+          
+        }
+    }
 }
 </script>
 
