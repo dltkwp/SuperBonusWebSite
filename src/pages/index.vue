@@ -14,7 +14,7 @@
                 </a>
               </div>
               <div class="col-md-6">
-                <router-link to="undertake/v_uundertake" class="bg-wycj btn-tool">
+                <router-link to="undertake/v_undertake" class="bg-wycj btn-tool">
                   <h3>我要承接</h3>
                   <p>Undertake</p>
                 </router-link>
@@ -226,23 +226,6 @@
         </div>
 
         <footers></footers>
-
-        <div class="modal fade" id="Code" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog modal-dialog-regist" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <h4 class="modal-title" id="myModalLabel">请扫描二维码进行操作</h4>
-                </div>
-                <div class="modal-body text-center">
-                <img src="@/assets/img/code.jpg" style="width:70%; margin:30px;">
-                </div>
-              </div>
-          </div>
-        </div>
-
     </div>
 </template>
 

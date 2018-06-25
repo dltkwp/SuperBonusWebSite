@@ -20,7 +20,7 @@
                     <div class="row">
                         <div class="col-md-4" v-for="(item,index) in projectsList" :key="index">
                             <div class="projects-item">
-                                <a href="javascript:;;">
+                                <router-link :to="{path:'/undertake/v_undertakedetail',query:{id: item.id}}">
                                     <div class="projects-head">
                                     <img :src="item.imgUrl">
                                     </div>
@@ -40,7 +40,7 @@
                                         </li>
                                     </ul>
                                     </div>
-                                </a>
+                                </router-link>
                             </div>
                         </div>
                     </div>
