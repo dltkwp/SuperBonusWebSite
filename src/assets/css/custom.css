@@ -5,6 +5,7 @@ body {
   background-color: #F7F7F7;
   color: #323232;
 }
+
 a{
   color:#576B95;
 }
@@ -443,12 +444,23 @@ a:focus{
 .font-12{
 	font-size:12px;
 }
-
+.font-13{
+	font-size:13px;
+}
 .font-16{
 	font-size:16px;
 }
+.font-24{
+	font-size:24px;
+}
 .font-grey {
   color: #a6a9a8;
+}
+.font-lightgrey{
+  color:#999999;
+}
+.font-dark{
+  color:#666666;
 }
 
 .font-red {
@@ -458,7 +470,12 @@ a:focus{
 .font-black{
   color:#262626;
 }
-
+.mar-t-5 {
+  margin-top: 5px;
+}
+.mar-t-10 {
+  margin-top: 10px;
+}
 .mar-t-15 {
   margin-top: 15px;
 }
@@ -477,8 +494,6 @@ a:focus{
 
 .about-banner {
   width: 100%;
-  max-height: 400px;
-  overflow: hidden;
 }
 
 
@@ -493,7 +508,12 @@ a:focus{
 .mar-r-10 {
   margin-right: 10px;
 }
-
+.mar-r-20 {
+  margin-right: 20px;
+}
+.pad-20{
+  padding:20px;
+}
 .pad-tb-50 {
   padding-top: 50px;
   padding-bottom: 50px;
@@ -636,7 +656,9 @@ a:focus{
   font-size:13px;
   color:#262626;
 }
-
+.pages a{
+  color:#b3b3b3;
+}
 /*百科类*/
 
 .list {
@@ -945,6 +967,50 @@ a.btn-tool:hover {
   background-size: 100% 100%;
   display: inline-block;
 }
+
+.icon-company {
+  width: 206px;
+  height: 36px;
+  background: url(../img/pic_font_introduction.png) no-repeat left center;
+  background-color: #fff;
+  background-size: 100% 100%;
+  display: inline-block;
+}
+
+.icon-superbonus {
+  width: 202px;
+  height: 36px;
+  background: url(../img/pic_font_super.png) no-repeat left center;
+  background-color: #f7f7f7;
+  background-size: 100% 100%;
+  display: inline-block;
+}
+
+.icon-coverage{
+  width: 294px;
+  height: 36px;
+  background: url(../img/pic_font_cover.png) no-repeat left center;
+  background-color: #fff;
+  background-size: 100% 100%;
+  display: inline-block;
+}
+
+.icon-culture{
+  width: 290px;
+  height: 36px;
+  background: url(../img/pic_font_culture.png) no-repeat left center;
+  background-color: #f7f7f7;
+  background-size: 100% 100%;
+  display: inline-block;
+}
+.icon-recruitment{
+  width: 206px;
+  height: 36px;
+  background: url(../img/pic_font_recruitment.png) no-repeat left center;
+  background-color: #fff;
+  background-size: 100% 100%;
+  display: inline-block;
+}
 .join-item {
   background: #fff;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.06);
@@ -1148,8 +1214,7 @@ padding:8px 16px;
 .news-item-body ul li .news-info-left{
 	display: none;
 	width:100px;
-	height: 75px;
-	overflow: hidden;
+
 	margin-right: 10px;
 }
 .news-item-body ul li .news-info-left img{
@@ -1168,7 +1233,9 @@ padding:8px 16px;
 	display: block;
 }
 
-
+.recuritment .news-item-body ul li .news-info-left{
+  width:75px;
+}
 /*超级悬赏*/
 .form-control{
   background: #fff;
@@ -1305,4 +1372,136 @@ padding:8px 16px;
 .intro-text h3{
   margin-top:20px;
   margin-bottom:20px;
+}
+.flexbox{
+  display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    width: 100%;
+   
+}
+.flexbox.flexstart{
+  -webkit-justify-content: flex-start;
+  justify-content:flex-start
+}
+.flex-vertical{
+  display: -webkit-box;
+  display: flex;
+  display: -webkit-flex;
+  box-align: center;
+  -webkit-box-align: center;
+  box-orient: vertical;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  
+}
+.flex-vertical.center{
+  -webkit-align-items: center;
+  align-items: center;
+}
+.flex-transverse{
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center; 
+
+}
+
+.form-label{
+  margin-bottom:0;
+  width:80px;
+}
+.projects-detail .media-left{
+padding-right:20px;
+}
+
+.projects-detail .media-left img{
+  width:320px;
+}
+.media-subtitle{
+  width:100%;
+  padding: 10px 0;
+  color:#666666;
+  font-size:16px;
+}
+.projects-detail .projects-detail-price{
+  width:100%;
+  background-color: #f5f5f5;
+  border:1px solid #eeeeee;
+  padding:6px 10px;
+}
+.projects-detail .projects-detail-price .flexitem{
+  min-width:25%;
+}
+.projects-detail .projects-detail-btn .btn{
+  width:25%;
+}
+.projects-detail-content{
+  width:100%;
+  margin-top:50px;
+}
+.intro-title{
+  width:100%;
+  float:left;
+  background: #F5F5F5;
+border: 1px solid #EEEEEE;
+border-left:4px solid #F23030;
+padding:10px;
+font-size:16px;
+}
+.cooperate-list{
+  width:100%;
+  float:left;
+  margin:0;
+  padding:0;
+}
+.cooperate-list ul{
+  margin:30px 0;
+  padding: 0;
+  list-style: none;
+  width:100%;
+  float:left;
+  border:1px solid #eaeaea;
+}
+.cooperate-list ul li{
+  width:100%;
+  float:left;
+  
+  padding:20px;
+  cursor: pointer;
+  border-bottom: 1px dashed #eaeaea;
+}
+.cooperate-list ul li:hover{
+  box-shadow: 0;
+
+}
+.cooperate-list ul li:last-child{
+  border-bottom: none;
+}
+
+.cooperate-list ul li .media-heading{
+  font-size:30px;
+  margin-bottom:20px;
+  margin-top:20px;
+}
+.cooperate-list ul li .media-left img{
+  width:300px;
 }
