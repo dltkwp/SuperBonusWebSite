@@ -6,11 +6,11 @@
       </ol>
 
       <div class="carousel-inner" role="listbox">
-        <div class="item " :class="{active: index ==0}" v-for="(item,index) in advs" :key="index">
+        <div @click="jumpUrl(index)" class="item" :class="{active: index ==0}" v-for="(item,index) in advs" :key="index">
             <a href="javascript:;;">
-              <img src="@/assets/img/banner_1.jpg" alt="...">
+              <img :src="item.imgUrl" alt="...">
             </a>
-          <div class="carousel-caption"> </div>
+            <div class="carousel-caption"> </div>
         </div>
       </div>
 
@@ -49,16 +49,19 @@ export default {
                  _this.$axios
                     .get("advs?client=pc")
                     .then(result => {
-                        let data = result.data;
-                        if(data.length===0) {
-                            alert('空页面怎么处理')
+                        let list = result.data;
+                        if(list.length===0) {
+                            list.push({
+                                imgUrl:'https://bonus.oss-cn-beijing.aliyuncs.com/product/DE80CF29F55A4827B87EF0E99036EBC7',
+                                type: 'about',
+                                href:'/about/v_about'
+                            })
                         } else {
-                            let list = data
                             _this.$lodash.forEach(list,function(item) {
                                 item.imgUrl = mtConst.IMAGE_STATIC_URL + item.images
                             })
-                            _this.advs = list
                         }
+                        _this.advs = list
                     })
                     .catch(err => {});
             } catch (error) {
@@ -68,7 +71,7 @@ export default {
         jumpUrl (index) {
           let _this = this
           let cur = _this.advs[index]
-          if  (index) {
+          if  (cur) {
               let url = ''
               switch (cur.type) {
                 case "product":{
@@ -77,11 +80,10 @@ export default {
                 case "project":{
                     url = '/join/v_detail?id=' + cur.href
                 }break;
-                case "custom":{
-
+                case "about":{
+                    url = cur.href
                 }break;
               }
-
               window.location.href = url 
           }
           
