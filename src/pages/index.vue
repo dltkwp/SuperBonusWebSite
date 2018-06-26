@@ -96,135 +96,7 @@
         </div>
 
         <projects></projects>
-
-        <div class="doom bg-white" data-scroll-reveal>
-          <div class="doom-head">
-            <div class="doom-title">
-              <span class="icon-globe"></span>
-            </div>
-            <p class="text-center mar-t-15">全球商务信息共享圆桌会</p>
-          </div>
-          <div class="doom-body">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="news-item">
-                    <div class="news-item-title">
-                      超级悬赏共享圆桌会
-                      <a href="#" class="pull-right">READ MORE ></a>
-                    </div>
-                    <div class="news-item-body">
-                      <ul>
-                        <a href="news.html">
-                          <li class="active">
-
-                            <div class="news-info-left">
-                              <img src="@/assets/img/pic_join_chaowei.png">
-                            </div>
-                            <div class="news-info-right">
-                              <div class="news-info-title">超级悬赏共享商务圆桌会</div>
-                              <div class="news-info-time">2018/05/07</div>
-                            </div>
-
-                          </li>
-                        </a>
-                        <a href="news.html">
-                          <li>
-
-                            <div class="news-info-left">
-                              <img src="@/assets/img/pic_join_chaowei.png">
-                            </div>
-                            <div class="news-info-right">
-                              <div class="news-info-title">超级悬赏共享商务圆桌会</div>
-                              <div class="news-info-time">2018/05/07</div>
-                            </div>
-
-                          </li>
-                        </a>
-                        
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="news-item">
-                    <div class="news-item-title">
-                      超级悬赏共享圆桌会
-                      <a href="#" class="pull-right">READ MORE ></a>
-                    </div>
-                    <div class="news-item-body">
-                      <ul>
-                        <a href="news.html">
-                          <li class="active">
-
-                            <div class="news-info-left">
-                              <img src="@/assets/img/pic_join_chaowei.png">
-                            </div>
-                            <div class="news-info-right">
-                              <div class="news-info-title">超级悬赏共享商务圆桌会</div>
-                              <div class="news-info-time">2018/05/07</div>
-                            </div>
-
-                          </li>
-                        </a>
-                        <a href="news.html">
-                          <li>
-
-                            <div class="news-info-left">
-                              <img src="@/assets/img/pic_join_chaowei.png">
-                            </div>
-                            <div class="news-info-right">
-                              <div class="news-info-title">超级悬赏共享商务圆桌会</div>
-                              <div class="news-info-time">2018/05/07</div>
-                            </div>
-
-                          </li>
-                        </a>
-                        
-                      </ul>
-                    </div>
-                  </div>
-
-                </div>
-                <div class="col-md-4">
-                  <div class="news-item">
-                    <div class="news-item-title">
-                      超级悬赏共享圆桌会
-                      <a href="#" class="pull-right">READ MORE ></a>
-                    </div>
-                    <div class="news-item-body">
-                      <ul>
-                        <a href="news.html">
-                          <li class="active">
-                            <div class="news-info-left">
-                              <img src="@/assets/img/pic_join_chaowei.png">
-                            </div>
-                            <div class="news-info-right">
-                              <div class="news-info-title">超级悬赏共享商务圆桌会</div>
-                              <div class="news-info-time">2018/05/07</div>
-                            </div>
-                          </li>
-                        </a>
-                        <a href="news.html">
-                          <li>
-                            <div class="news-info-left">
-                              <img src="@/assets/img/pic_join_chaowei.png">
-                            </div>
-                            <div class="news-info-right">
-                              <div class="news-info-title">超级悬赏共享商务圆桌会</div>
-                              <div class="news-info-time">2018/05/07</div>
-                            </div>
-                          </li>
-                        </a>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+        <meet></meet>
         <footers></footers>
     </div>
 </template>
@@ -236,6 +108,7 @@ import Banner from "@/components/banner.vue"
 import Footers from "@/components/footer.vue"
 import Joiner from "@/components/join.vue"
 import Projects from "@/components/projects.vue"
+import Meet from "@/components/meet.vue"
 
 export default {
   components: {
@@ -244,7 +117,8 @@ export default {
     Banner,
     Footers,
     Joiner,
-    Projects
+    Projects,
+    Meet
   },
   data () {
     return {}
