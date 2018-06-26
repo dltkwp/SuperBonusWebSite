@@ -43,10 +43,13 @@
                                 </router-link>
                             </div>
                         </div>
+                        <div class="col-md-12" v-if="parentTotalPage==0">
+                            <v-empty :isShow="parentTotalPage==0"></v-empty>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            。。。。分页。。。。
+                            <page :pageSize="pageSize" v-if="parentTotalPage>0" :total="parentTotalPage" show-total :current="pageNo" @on-change="parentCallback"></page>
                         </div>
                     </div>
                 </div>
@@ -67,6 +70,8 @@ import Footers from "@/components/footer.vue"
 import Joiner from "@/components/join.vue"
 import Projects from "@/components/projects.vue"
 import mtConst from "@/util/super-const"
+import { Page } from 'iview'
+import vEmpty from '@/components/empty.vue'
 
 export default {
   components: {
@@ -75,11 +80,14 @@ export default {
     Banner,
     Footers,
     Joiner,
-    Projects
+    Page,
+    Projects,
+    vEmpty
   },
    data () {
     return {
         areaList: [],
+        parentTotalPage:0,
         areaId: '',
         pageNo: 1,
         pageSize: 15,
@@ -92,6 +100,12 @@ export default {
     _this.queryProjects()
   },
   methods: {
+    parentCallback(cPage) {
+      let _this = this;
+      _this.areaList = []
+      _this.pageNo = cPage;
+      _this.queryProjects();
+    },
     areaItemClick (index) {
         let _this = this
         let cur = _this.areaList[index]
@@ -136,12 +150,14 @@ export default {
                     let data = result.data;
                     if (data && data.list) {
                         if(data.list.length===0) {
+                            _this.parentTotalPage = 0
                             _this.projectsList = []
                         } else {
                             let list = data.list
                             _this.$lodash.forEach(list,function(item) {
                                 item.imgUrl = mtConst.IMAGE_STATIC_URL + item.images
                             })
+                            _this.parentTotalPage = data.total
                             _this.projectsList = list
                         }
                     }

@@ -11,7 +11,7 @@
             <div class="row" v-for="(item,index) in projectsList" :key="index">
                 <div class="col-md-3" v-for="(sub,pindex) in item" :key="pindex">
                     <div class="projects-item">
-                        <a href="javascript:;;" >
+                        <router-link :to="{path:'/undertake/v_undertakedetail',query:{id: sub.id}}">
                             <div class="projects-head">
                                 <img :src="sub.imgUrl">
                             </div>
@@ -35,11 +35,11 @@
                                 </li>
                             </ul>
                             </div>
-                        </a>
+                        </router-link>
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style="margin-bottom: 10px;">
                 <div class="col-md-12 text-center">
                     <router-link to="/undertake/v_undertake" class="btn btn-black">READ MORE ></router-link>
                 </div>
@@ -54,7 +54,6 @@ import mtConst from '@/util/super-const.js'
 
 export default {
     components: {
-
     },
     mounted() {
         let _this = this

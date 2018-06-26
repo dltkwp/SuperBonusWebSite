@@ -22,6 +22,7 @@ export default {
 </script>
 
 <style>
+  @import './assets/iview.css';
   @import './assets/css/bootstrap.min.css';
   @import './assets/css/custom.css';
   @import './assets/css/animate.css';
