@@ -12,7 +12,7 @@
                 <div class="col-md-4"  v-for="(item,index) in list" :key="index">
                   <div class="news-item">
                     <div class="news-item-title">
-                      超级悬赏共享圆桌会
+                      {{item.categoryName}}
                       <a href="#" class="pull-right">READ MORE ></a>
                     </div>
                     <div class="news-item-body">

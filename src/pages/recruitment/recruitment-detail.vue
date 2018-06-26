@@ -5,7 +5,7 @@
        
        <div class="doom example">
         <div class="pages">
-            <div class="container"> 首页 &nbsp;&gt;&nbsp; 圆桌会 &nbsp;&gt;&nbsp; {{detail.title}}  </div>
+            <div class="container"> 首页 &nbsp;&gt;&nbsp; 诚聘精英 &nbsp;&gt;&nbsp;{{detail.title}}  </div>
         </div>
             <div class="container">
                 <div class="pages-content">
