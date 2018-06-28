@@ -54,7 +54,7 @@ export default {
                             list.push({
                                 imgUrl:'https://bonus.oss-cn-beijing.aliyuncs.com/product/DE80CF29F55A4827B87EF0E99036EBC7',
                                 type: 'about',
-                                href:'/about/v_about'
+                                href:'/common/v_about'
                             })
                         } else {
                             _this.$lodash.forEach(list,function(item) {

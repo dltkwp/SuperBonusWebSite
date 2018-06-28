@@ -6,7 +6,7 @@
                     <div class="foot-ul">
                     <ul>
                         <li class="title">
-                        <a href="#">关于我们/About Us</a>
+                            <router-link to="/common/v_about">关于我们/About Us</router-link>
                         </li>
                     </ul>
                     </div>
@@ -15,7 +15,7 @@
                     <div class="foot-ul">
                     <ul>
                         <li class="title">
-                        <a href="#">联系我们/Contact Us</a>
+                            <router-link to="/common/v_connect">联系我们/Contact Us</router-link>
                         </li>
                     </ul>
                     </div>
@@ -24,7 +24,7 @@
                     <div class="foot-ul">
                     <ul>
                         <li class="title">
-                        <a href="#">法律声明/Legal Statement</a>
+                            <router-link to="/common/v_legalStatement">法律声明/Legal Statement</router-link>
                         </li>
                     </ul>
                     </div>
@@ -33,7 +33,7 @@
                     <div class="foot-ul">
                     <ul>
                         <li class="title">
-                        <a href="#">隐私权政策/Privacy Policy</a>
+                            <router-link to="/common/v_privacyPolicy">隐私权政策/Privacy Policy</router-link>
                         </li>
                     </ul>
                     </div>

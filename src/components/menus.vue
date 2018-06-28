@@ -8,19 +8,19 @@
           <router-link to="/v_index">首页</router-link>
         </li>
         <li :class="{active:parentKey=='About'}">
-          <router-link to="/about/v_about">超级悬赏</router-link>
+          <router-link to="/common/v_about">超级悬赏</router-link>
         </li>
         <li :class="{active:parentKey=='Culture'}">
-          <router-link to="/culture/v_culture">企业文化</router-link>
+          <router-link to="/common/v_culture">企业文化</router-link>
         </li>
         <li :class="{active:parentKey=='Cooperate'}">
-          <router-link to="/cooperate/v_cooperate">合作联盟</router-link>
+          <router-link to="/common/v_cooperate">合作联盟</router-link>
         </li>
         <li :class="{active:parentKey=='Recruitment'}">
           <router-link to="/recruitment/v_recruitment">诚聘精英</router-link>
         </li>
-        <li :class="{active:parentKey=='Join'}">
-          <router-link to="/join/v_detail">加入我们</router-link>
+        <li :class="{active:parentKey=='ConnectUs'}">
+          <router-link to="/common/v_connect">联系我们</router-link>
         </li>
         <li>
           <div class="form-group has-black has-feedback">

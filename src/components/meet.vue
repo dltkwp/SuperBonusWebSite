@@ -13,7 +13,7 @@
                   <div class="news-item">
                     <div class="news-item-title">
                       {{item.categoryName}}
-                      <a href="#" class="pull-right">READ MORE ></a>
+                      <router-link class="pull-right"  :to="{path:'/meet/v_list',query:{cid:item.id}}">READ MORE ></router-link>
                     </div>
                     <div class="news-item-body">
                       <ul>
@@ -32,6 +32,11 @@
                     </div>
                   </div>
                 </div>
+
+                <div class="col-md-12" v-if="parentTotalPage==0">
+                    <v-empty :isShow="parentTotalPage==0"></v-empty>
+                </div>
+
               </div>
             </div>
           </div>
@@ -40,6 +45,7 @@
 
 <script>
 import mtConst from '@/util/super-const.js'
+import vEmpty from '@/components/empty.vue'
 
 export default {
     components: {
@@ -52,6 +58,7 @@ export default {
         return {
             pageNo: 1,
             pageSize: 3,
+            parentTotalPage:0,
             list: []
         }
     },
@@ -70,7 +77,8 @@ export default {
                         let data = result.data;
                         if (data && data.list) {
                             if(data.list.length===0) {
-                                alert('空页面怎么处理')
+                                _this.parentTotalPage = 0
+                                _this.list = []
                             } else {
                                 let list = data.list
                                 _this.$lodash.forEach(list,function(item) {
@@ -78,6 +86,8 @@ export default {
                                     item.newstime = _this.$moment(item.createDate).format('YYYY/MM/DD')
                                 })
                                 _this.list = list
+                                _this.parentTotalPage = data.total
+
                             }
                         }
                     })

@@ -22,7 +22,7 @@
                             <div class="news-item">
                                 <div class="news-item-title">
                                     {{item.categoryName}}
-                                    <a href="#" class="pull-right">READ MORE ></a>
+                                    <router-link class="pull-right" :to="{path:'/recruitment/v_list',query:{cid:item.category}}">READ MORE ></router-link>
                                 </div>
     
                                 <div class="news-item-body">
