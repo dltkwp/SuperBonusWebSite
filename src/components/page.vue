@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white" v-html="detail.description"></div>
+    <div v-html="detail.description"></div>
 </template>
 
 <script>
@@ -22,7 +22,7 @@ export default {
         let _this = this
         try {
             _this.$axios
-                .get("customPages?type" + _this.type)
+                .get("customPages/type/" + _this.type)
                 .then(result => {
                     _this.detail = result.data || {}
                 })

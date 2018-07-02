@@ -3,7 +3,7 @@
     <div>
         <top></top>
         <menus></menus>
-        <page :type="'corporateCulture'"></page>
+        <page :type="'corporateCulver'"></page>
         <footers></footers>
     </div>
 </template>

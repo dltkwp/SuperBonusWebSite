@@ -2,7 +2,7 @@
     <div>
         <top></top>
         <menus></menus>
-        <page :type="'connectUs'"></page>
+        <page :type="'contactUs'"></page>
         <footers></footers>
     </div>
 </template>
