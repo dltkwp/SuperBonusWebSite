@@ -1,3 +1,6 @@
+let moment = require('./moment')
+let thkConst = require('./super-const')
+
 const authToLogin = function (res) {
   if (res && res.code) {
     if (res.code === 401) {
@@ -17,7 +20,25 @@ const getPayTypeName = function (key) {
   return res
 }
 
+/**
+ * 判定是否是登录状态
+ * 1: 是否登录过
+ * 2: 登录过是否token过期
+ */
+const isLogin = function () {
+  let auth = localStorage.getItem(thkConst.LOGIN_USER_INFO_KEY)
+  if (!auth) {
+    return false
+  } else {
+    if (moment().isAfter(moment(auth.expiredAt))) {
+      return false
+    }
+    return true
+  }
+}
+
 module.exports = {
   authToLogin,
-  getPayTypeName
+  getPayTypeName,
+  isLogin
 }
