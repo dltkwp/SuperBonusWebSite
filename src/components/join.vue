@@ -43,6 +43,9 @@ import mtConst from '@/util/super-const.js'
 import vEmpty from '@/components/empty.vue'
 
 export default {
+    components: {
+        vEmpty
+    },
     data () {
         return {
             pageNo:1,

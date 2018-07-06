@@ -41,7 +41,8 @@
         </div>
 
 
-        <div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            
+        <div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
             <div class="modal-dialog modal-dialog-regist" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -56,9 +57,9 @@
                         <input type="text" class="form-control form-md" placeholder="输入手机号" maxlength="11" v-model="login.mobile">
                     </div>
                     <div class="form-group">
-                    <input type="password" class="form-control form-md" placeholder="请输入密码" maxlength="20" v-model="login.pwd">
+                        <input type="password" class="form-control form-md" placeholder="请输入密码" maxlength="20" v-model="login.pwd">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group hide">
                         <div class="row">
                             <div class="col-md-8">
                                 <input type="text" class="form-control form-md" placeholder="请输入验证码(连续3次输入密码错误显示）">
@@ -71,7 +72,7 @@
                 </form>
                 </div>
                 <div class="modal-footer">
-                <a  class="btn btn-black btn-block btn-lg" href="member.html">登录</a>
+                <a  class="btn btn-black btn-block btn-lg" href="javascript:;;" @click="loginSubmit">登录</a>
                 <p class="text-center mar-t-15"> 
                     <a href="javascript:;;" @click="goToRegist" class="font-black font-16 text-center">还没有账号？立即注册</a>
                 </p>
@@ -80,7 +81,7 @@
             </div>
         </div>
 
-         <div class="modal fade" id="RegistModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="RegistModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-dialog-regist" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -126,7 +127,7 @@
             </div>
         </div>
 
-         <div class="modal fade" id="releaseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="releaseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-dialog-regist" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -172,28 +173,31 @@
             </div>
         </div>
 
-
     </div>
 </template>
 
 <script>
 import utils from '@/util/util'
+import mtConst from "@/util/super-const"
 
 export default {
     data () {
         return {
+            isLoading: false,
             isLoginStatus: false,
             userInfo: {},
             login: {
                 mobile: '',
                 pwd:'',
-                imgCode:''
+                imgCode:'',
+                isShowImageCode: false
             },
             regist:{
                 mobile: '',
                 pwd: '',
                 imgCode: '',
                 isChecked: 0,
+                isShowImageCode: false
             }
         }
     },
@@ -212,7 +216,6 @@ export default {
             $("#RegistModal").modal('show')
         },
         goToRegist () {
-            
             $("#LoginModal").modal('hide')
             $("#RegistModal").modal('show')
         },
@@ -224,7 +227,35 @@ export default {
 
         },
         loginSubmit () {
+           let _this = this
+           if (_this.isLoading) {
+               return false;
+           }
 
+           let mobile = _this.login.mobile
+           if (!mobile) {
+               alert('手机号不可为空')
+               return false
+           }
+
+           let pwd = _this.login.pwd
+           if (!pwd) {
+               alert('密码不可为空')
+               return false
+           }
+            _this.$axios
+                .get("login",{
+                    userName: mobile,
+                    pwd: pwd
+                })
+                .then(result => {
+                    let data = result.data;
+                    alert('登录成功')
+                    localStorage.setItem(mt.SUPER_TOKEN_PC_KEY,data)
+                    $("#LoginModal").modal('hide')
+                })
+                .catch(err => {});
+            
         }
     }
 }

@@ -106,7 +106,3 @@
         }
     }
     </script>
-
-    <style>
-
-    </style>

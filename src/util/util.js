@@ -26,7 +26,7 @@ const getPayTypeName = function (key) {
  * 2: 登录过是否token过期
  */
 const isLogin = function () {
-  let auth = localStorage.getItem(thkConst.LOGIN_USER_INFO_KEY)
+  let auth = localStorage.getItem(thkConst.SUPER_TOKEN_PC_KEY)
   if (!auth) {
     return false
   } else {
