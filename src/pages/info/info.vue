@@ -108,126 +108,40 @@
               <div class="panel-heading no-border">我发布的任务</div>
             </div>
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-3" v-for="(item,index) in releaseList" :key="index">
                 <div class="projects-item">
-                  <a href="projects.html">
+                  <router-link :to='{path:"/undertake/v_undertakedetail",query:{id:item.projectId}}'>
                     <div class="projects-head">
-                      <div class="state-suc">已完成</div>
-                      <img src="img/product1.jpeg">
+                      <div class="state-suc" v-if="item.status == 'done'">已完成</div>
+                      <div class="state-process" v-if="item.status == 'undertake'">任务中</div>
+                      <div class="state-cancel" v-if="item.status == 'cancel'">已取消</div>
+                      <div class="state-cancel" v-if="item.status == 'wait'">待审核</div>
+                      
+                      <img :src="item.imgUrl">
                     </div>
                     <div class="projects-body">
-                      <div class="projects-title">超级悬赏共享联盟 </div>
-                      <div class="projects-info">《超级悬赏共享联盟》是一个以获取资金及人脉资源为主的商务信息平台。 </div>
+                      <div class="projects-title">{{item.projectName}} </div>
+                      <div class="projects-info"> {{item.intoduction}} </div>
                     </div>
                     <div class="projects-footer">
                       <ul>
                         <li>
                           <p class="projects-footer-title">悬赏标价</p>
-                          <p class="projects-footer-price">
-                            <span class="font-12">¥</span>1000</p>
+                          <p class="projects-footer-price">没有。。</p>
                         </li>
                         <li>
                           <p class="projects-footer-title">赏金</p>
-                          <p class="projects-footer-price font-red">
-                            <span class="font-12">¥</span>0.00</p>
+                          <p class="projects-footer-price font-red" v-html="item.price"></p>
                         </li>
                       </ul>
                     </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="projects-item">
-                  <a href="projects.html">
-                    <div class="projects-head">
-                      <div class="state-process">任务中</div>
-                      <img src="img/product2.jpeg">
-                    </div>
-                    <div class="projects-body">
-                      <div class="projects-title">APEC商旅卡项目 </div>
-                      <div class="projects-info">APEC商旅卡项目 </div>
-                    </div>
-                    <div class="projects-footer">
-                      <ul>
-                        <li>
-                          <p class="projects-footer-title">悬赏标价</p>
-                          <p class="projects-footer-price">
-                            60000元/张</p>
-                        </li>
-                        <li>
-                          <p class="projects-footer-title">赏金</p>
-                          <p class="projects-footer-price font-red">
-                            1000美金
-                          </p>
-                        </li>
-                      </ul>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="projects-item">
-                  <a href="projects.html">
-                    <div class="projects-head">
-                      <div class="state-cancel">已取消</div>
-                      <img src="img/product3.jpeg">
-                    </div>
-                    <div class="projects-body">
-                      <div class="projects-title">茶品礼盒及文化旅游项目 </div>
-                      <div class="projects-info">茶品礼盒及文化旅游项目 </div>
-                    </div>
-                    <div class="projects-footer">
-                      <ul>
-                        <li>
-                          <p class="projects-footer-title">悬赏标价</p>
-                          <p class="projects-footer-price">
-                            16888元／组</p>
-                        </li>
-                        <li>
-                          <p class="projects-footer-title">赏金</p>
-                          <p class="projects-footer-price font-red">
-                            10000.00
-                          </p>
-                        </li>
-                      </ul>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="projects-item">
-                  <a href="projects.html">
-                    <div class="projects-head">
-                      <div class="state-cancel">已取消</div>
-                      <img src="img/product4.jpeg">
-                    </div>
-                    <div class="projects-body">
-                      <div class="projects-title">泰国芭提雅房产 </div>
-                      <div class="projects-info">泰国芭提雅房产 </div>
-                    </div>
-                    <div class="projects-footer">
-                      <ul>
-                        <li>
-                          <p class="projects-footer-title">悬赏标价</p>
-                          <p class="projects-footer-price">
-                            105万-300万</p>
-                        </li>
-                        <li>
-                          <p class="projects-footer-title">赏金</p>
-                          <p class="projects-footer-price font-red">
-                            45000.00
-                          </p>
-                        </li>
-                      </ul>
-                    </div>
-                  </a>
+                  </router-link>
                 </div>
               </div>
 
               <div class="col-md-12" v-if="parentTotalPage==0">
                   <v-empty :isShow="parentTotalPage==0"></v-empty>
               </div>
-
             </div>
           </div>
         </div>
@@ -237,122 +151,37 @@
               <div class="panel-heading no-border">我承接的任务</div>
             </div>
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-3" v-for="(item,index) in releaseList" :key="index">
                 <div class="projects-item">
-                  <a href="projects.html">
+                  <router-link :to='{path:"/undertake/v_undertakedetail",query:{id:item.projectId}}'>
                     <div class="projects-head">
-                      <div class="state-suc">已完成</div>
-                      <img src="img/product1.jpeg">
+                      <div class="state-suc" v-if="item.status == 'done'">已完成</div>
+                      <div class="state-process" v-if="item.status == 'undertake'">任务中</div>
+                      <div class="state-cancel" v-if="item.status == 'cancel'">已取消</div>
+                      <div class="state-cancel" v-if="item.status == 'wait'">待审核</div>
+                      
+                      <img :src="item.imgUrl">
                     </div>
                     <div class="projects-body">
-                      <div class="projects-title">超级悬赏共享联盟 </div>
-                      <div class="projects-info">《超级悬赏共享联盟》是一个以获取资金及人脉资源为主的商务信息平台。 </div>
+                      <div class="projects-title">{{item.projectName}} </div>
+                      <div class="projects-info"> {{item.intoduction}} </div>
                     </div>
                     <div class="projects-footer">
                       <ul>
                         <li>
                           <p class="projects-footer-title">悬赏标价</p>
-                          <p class="projects-footer-price">
-                            <span class="font-12">¥</span>1000</p>
+                          <p class="projects-footer-price">没有。。</p>
                         </li>
                         <li>
                           <p class="projects-footer-title">赏金</p>
-                          <p class="projects-footer-price font-red">
-                            <span class="font-12">¥</span>0.00</p>
+                          <p class="projects-footer-price font-red" v-html="item.price"></p>
                         </li>
                       </ul>
                     </div>
-                  </a>
+                  </router-link>
                 </div>
               </div>
-              <div class="col-md-3">
-                <div class="projects-item">
-                  <a href="projects.html">
-                    <div class="projects-head">
-                      <div class="state-process">任务中</div>
-                      <img src="img/product2.jpeg">
-                    </div>
-                    <div class="projects-body">
-                      <div class="projects-title">APEC商旅卡项目 </div>
-                      <div class="projects-info">APEC商旅卡项目 </div>
-                    </div>
-                    <div class="projects-footer">
-                      <ul>
-                        <li>
-                          <p class="projects-footer-title">悬赏标价</p>
-                          <p class="projects-footer-price">
-                            60000元/张</p>
-                        </li>
-                        <li>
-                          <p class="projects-footer-title">赏金</p>
-                          <p class="projects-footer-price font-red">
-                            1000美金
-                          </p>
-                        </li>
-                      </ul>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="projects-item">
-                  <a href="projects.html">
-                    <div class="projects-head">
-                      <div class="state-cancel">已取消</div>
-                      <img src="img/product3.jpeg">
-                    </div>
-                    <div class="projects-body">
-                      <div class="projects-title">茶品礼盒及文化旅游项目 </div>
-                      <div class="projects-info">茶品礼盒及文化旅游项目 </div>
-                    </div>
-                    <div class="projects-footer">
-                      <ul>
-                        <li>
-                          <p class="projects-footer-title">悬赏标价</p>
-                          <p class="projects-footer-price">
-                            16888元／组</p>
-                        </li>
-                        <li>
-                          <p class="projects-footer-title">赏金</p>
-                          <p class="projects-footer-price font-red">
-                            10000.00
-                          </p>
-                        </li>
-                      </ul>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="projects-item">
-                  <a href="projects.html">
-                    <div class="projects-head">
-                      <div class="state-cancel">已取消</div>
-                      <img src="img/product4.jpeg">
-                    </div>
-                    <div class="projects-body">
-                      <div class="projects-title">泰国芭提雅房产 </div>
-                      <div class="projects-info">泰国芭提雅房产 </div>
-                    </div>
-                    <div class="projects-footer">
-                      <ul>
-                        <li>
-                          <p class="projects-footer-title">悬赏标价</p>
-                          <p class="projects-footer-price">
-                            105万-300万</p>
-                        </li>
-                        <li>
-                          <p class="projects-footer-title">赏金</p>
-                          <p class="projects-footer-price font-red">
-                            45000.00
-                          </p>
-                        </li>
-                      </ul>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              
+
               <div class="col-md-12" v-if="parentTotalPage==0">
                   <v-empty :isShow="parentTotalPage==0"></v-empty>
               </div>
@@ -366,119 +195,34 @@
               <div class="panel-heading no-border">我推荐的任务</div>
             </div>
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-3" v-for="(item,index) in releaseList" :key="index">
                 <div class="projects-item">
-                  <a href="projects.html">
+                  <router-link :to='{path:"/undertake/v_undertakedetail",query:{id:item.projectId}}'>
                     <div class="projects-head">
-                      <div class="state-suc">已完成</div>
-                      <img src="img/product1.jpeg">
+                      <div class="state-suc" v-if="item.status == 'done'">已完成</div>
+                      <div class="state-process" v-if="item.status == 'undertake'">任务中</div>
+                      <div class="state-cancel" v-if="item.status == 'cancel'">已取消</div>
+                      <div class="state-cancel" v-if="item.status == 'wait'">待审核</div>
+                      
+                      <img :src="item.imgUrl">
                     </div>
                     <div class="projects-body">
-                      <div class="projects-title">超级悬赏共享联盟 </div>
-                      <div class="projects-info">《超级悬赏共享联盟》是一个以获取资金及人脉资源为主的商务信息平台。 </div>
+                      <div class="projects-title">{{item.projectName}} </div>
+                      <div class="projects-info"> {{item.intoduction}} </div>
                     </div>
                     <div class="projects-footer">
                       <ul>
                         <li>
                           <p class="projects-footer-title">悬赏标价</p>
-                          <p class="projects-footer-price">
-                            <span class="font-12">¥</span>1000</p>
+                          <p class="projects-footer-price">没有。。</p>
                         </li>
                         <li>
                           <p class="projects-footer-title">赏金</p>
-                          <p class="projects-footer-price font-red">
-                            <span class="font-12">¥</span>0.00</p>
+                          <p class="projects-footer-price font-red" v-html="item.price"></p>
                         </li>
                       </ul>
                     </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="projects-item">
-                  <a href="projects.html">
-                    <div class="projects-head">
-                      <div class="state-process">任务中</div>
-                      <img src="img/product2.jpeg">
-                    </div>
-                    <div class="projects-body">
-                      <div class="projects-title">APEC商旅卡项目 </div>
-                      <div class="projects-info">APEC商旅卡项目 </div>
-                    </div>
-                    <div class="projects-footer">
-                      <ul>
-                        <li>
-                          <p class="projects-footer-title">悬赏标价</p>
-                          <p class="projects-footer-price">
-                            60000元/张</p>
-                        </li>
-                        <li>
-                          <p class="projects-footer-title">赏金</p>
-                          <p class="projects-footer-price font-red">
-                            1000美金
-                          </p>
-                        </li>
-                      </ul>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="projects-item">
-                  <a href="projects.html">
-                    <div class="projects-head">
-                      <div class="state-cancel">已取消</div>
-                      <img src="img/product3.jpeg">
-                    </div>
-                    <div class="projects-body">
-                      <div class="projects-title">茶品礼盒及文化旅游项目 </div>
-                      <div class="projects-info">茶品礼盒及文化旅游项目 </div>
-                    </div>
-                    <div class="projects-footer">
-                      <ul>
-                        <li>
-                          <p class="projects-footer-title">悬赏标价</p>
-                          <p class="projects-footer-price">
-                            16888元／组</p>
-                        </li>
-                        <li>
-                          <p class="projects-footer-title">赏金</p>
-                          <p class="projects-footer-price font-red">
-                            10000.00
-                          </p>
-                        </li>
-                      </ul>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="projects-item">
-                  <a href="projects.html">
-                    <div class="projects-head">
-                      <div class="state-cancel">已取消</div>
-                      <img src="img/product4.jpeg">
-                    </div>
-                    <div class="projects-body">
-                      <div class="projects-title">泰国芭提雅房产 </div>
-                      <div class="projects-info">泰国芭提雅房产 </div>
-                    </div>
-                    <div class="projects-footer">
-                      <ul>
-                        <li>
-                          <p class="projects-footer-title">悬赏标价</p>
-                          <p class="projects-footer-price">
-                            105万-300万</p>
-                        </li>
-                        <li>
-                          <p class="projects-footer-title">赏金</p>
-                          <p class="projects-footer-price font-red">
-                            45000.00
-                          </p>
-                        </li>
-                      </ul>
-                    </div>
-                  </a>
+                  </router-link>
                 </div>
               </div>
 
@@ -499,43 +243,16 @@
                   <a href="#">
                     <div class="projects-head">
                       <div class="state-suc">已完成</div>
-                      <img src="img/product1.jpeg">
+                      <img :src="item.imgUrl">
                     </div>
                     <div class="projects-body">
-                      <div class="projects-title">超级悬赏共享联盟 </div>
-                      <div class="projects-info">下单时间：2018/05/12 12:20 </div>
+                      <div class="projects-title">{{item.productName}} </div>
+                      <div class="projects-info">下单时间：{{item.createDateStr}} </div>
                     </div>
                     <div class="projects-footer">
                       <ul>
                         <li>
-                          <div class="pad-20 font-red text-left font-14">
-                            ¥300.00
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="projects-item">
-                  <a href="pay-suc.html">
-                    <div class="projects-head">
-                      <img src="img/product1.jpeg">
-                    </div>
-                    <div class="projects-body">
-                      <div class="projects-title">超级悬赏共享联盟 </div>
-                      <div class="projects-info">下单时间：2018/05/12 12:20 </div>
-                    </div>
-                    <div class="projects-footer">
-                      <ul>
-                        <li>
-                          <div class="pad-20 font-red text-left font-14">
-                            ¥300.00
-                          </div>
-                        </li>
-                        <li class="text-right">
-                          <div class="btn btn-danger btn-sm ">待付款</div>
+                          <div class="pad-20 font-red text-left font-14"> ¥ {{item.payment}}</div>
                         </li>
                       </ul>
                     </div>
@@ -550,11 +267,11 @@
 
           </div>
         </div>
-      </div>
-      <div class="row">
-          <div class="col-md-12">
-              <page :pageSize="pageSize" v-if="parentTotalPage>0" :total="parentTotalPage" show-total :current="pageNum" @on-change="parentCallback"></page>
-          </div>
+        <div class="row" style="text-align:  center;">
+            <div class="col-md-12">
+                <page :pageSize="pageSize" v-if="parentTotalPage>0" :total="parentTotalPage" show-total :current="pageNum" @on-change="parentCallback"></page>
+            </div>
+        </div>
       </div>
     </div>
     <footers></footers>
@@ -578,7 +295,7 @@
 
 
   export default {
-    components: { Top, Menus, Banner, Footers, vEmpty },
+    components: { Top, Menus, Banner, Footers, vEmpty, Page },
     data: function() {
       return {
           tabIndex: 0,
@@ -701,7 +418,21 @@
         _this.$axios
           .get(url + '?' + params.join('&'))
           .then(result => {
-            console.log(result)
+            let data = result.data;
+            if (data && data.list) {
+                if(data.list.length===0) {
+                    _this.parentTotalPage = 0
+                    _this.releaseList = []
+                } else {
+                    let list = data.list
+                    _this.$lodash.forEach(list,function(item) {
+                        item.createDateStr = _this.$moment(item.createDate).format('YYYY/MM/DD HH:mm')
+                        item.imgUrl = superConst.IMAGE_STATIC_URL + item.images
+                    })
+                    _this.parentTotalPage = data.total
+                    _this.releaseList = list
+                }
+            }
           })
           .catch(err => {});
       },
@@ -723,6 +454,7 @@
                 } else {
                     let list = data.list
                     _this.$lodash.forEach(list,function(item) {
+                        item.createDateStr = _this.$moment(item.createDate).format('YYYY/MM/DD HH:mm')
                         item.imgUrl = superConst.IMAGE_STATIC_URL + item.images
                     })
                     _this.parentTotalPage = data.total
