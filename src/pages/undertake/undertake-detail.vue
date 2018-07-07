@@ -3,7 +3,7 @@
         <top></top>
         <menus></menus>
         <div class="pages">
-            <div class="container"> 首页 &gt; 我要承接 &gt; {{vdetail.productName}} </div>
+            <div class="container"><a href='javascript:;;'> 首页 </a> &gt; <a href='javascript:;;'>我要承接 </a> &gt; {{vdetail.projectName}} </div>
         </div>
         <div class="container">
 
@@ -98,6 +98,26 @@
           </div>
         </div>
 
+        <div class="modal fade" id="divConfirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">温馨提示</h4>
+              </div>
+              <div class="modal-body">
+                  <div class="alert alert-info">加入超级悬赏共享平台方可进行发布和承接</div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" @click="confirmSubmit">提交</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
     </div>
 </template>
 
@@ -133,11 +153,25 @@ export default {
     _this.detail();
   },
   methods: {
+    confirmSubmit () {
+      let _this = this
+
+    },
     showRecommendModal () {
       let _this = this
-      _this.recommend.name = ''
-      _this.recommend.mobile = ''
-      $("#Recommend").modal('show')
+      _this.getPoint((data) => {
+          if (data.code && data.code > 0) { // productId=20
+            $("#divConfirmModal").modal('show')
+          } else {
+            if(data>0){
+              _this.recommend.name = ''
+              _this.recommend.mobile = ''
+              $("#Recommend").modal('show')
+            }else{
+              $("#divConfirmModal").modal('show')
+            }
+          }
+      })
     },
     detail() {
       let _this = this;
@@ -182,24 +216,30 @@ export default {
       } else {
         _this.getPoint((data) => {
              if (data.code && data.code > 0) { // productId=20
-                alert('加入超级悬赏共享平台方可进行发布和承接')
+                $("#divConfirmModal").modal('show')
               } else {
+                debugger
                 if(data>0){
-                  let userInfo = localStorage.getItem(superConst.LOGIN_USER_INFO_KEY)
+                  let userInfo = localStorage.getItem(superConst.SUPER_TOKEN_PC_KEY)
                   if (userInfo) {
                     userInfo = JSON.parse (userInfo)
                   }
                   if (userInfo) {
+                    
                     _this.$axios
-                      .get("projects/" + _this.id + "/users/" + userInfo.id)
+                      .post(superConst.API_BASE_WEBCHAT_URL + "projects/" + _this.id + "/users/" + userInfo.userId)
                       .then(result => {
                         let data = result.data;
-                        alert('操作成功')
+                        if (data.code!= 200 && data.code != 201) {
+                          alert(data.msg)
+                        }else{
+                          alert('操作成功')
+                        }
                       })
                       .catch(err => {});
                   }
                 }else{
-                  alert('加入超级悬赏共享平台方可进行发布和承接')
+                  $("#divConfirmModal").modal('show')
                 }
               }
         })
@@ -222,11 +262,19 @@ export default {
       let loginInfo = localStorage.getItem(superConst.SUPER_TOKEN_PC_KEY)
       if (loginInfo) {
         loginInfo = JSON.parse (loginInfo)
+        let param = [];
+        param.push('username=' + name);
+        param.push('phone=' + moible);
+        param.push('userId=' + loginInfo.userId);
         _this.$axios
-          .get("projects/" + _this.id + "/users/" + loginInfo.userId)
+          .post(superConst.API_BASE_WEBCHAT_URL + "projects/" + _this.id + "/recommend?" + param.join('&'))
           .then(result => {
             let data = result.data;
-            alert('操作成功')
+             if (data.code!= 200 && data.code != 201) {
+                alert(data.msg)
+              }else{
+                alert('操作成功')
+              }
           })
           .catch(err => {});
       }
