@@ -165,23 +165,44 @@ export default {
         console.error(error);
       }
     },
+    getPoint (callback) {
+      let _this = this
+      _this.$axios
+        .get(superConst.API_BASE_WEBCHAT_URL + 'users/point')
+        .then(result => {
+          let data = result.data;
+          callback && callback(data)
+        })
+        .catch(err => {});
+    },
     acceptSubmit() {
+      let _this = this
       if (!utils.isLogin()) {
         $("#LoginModal").modal('show')
       } else {
-        let userInfo = localStorage.getItem(superConst.LOGIN_USER_INFO_KEY)
-        if (userInfo) {
-          userInfo = JSON.parse (userInfo)
-        }
-        if (userInfo) {
-          _this.$axios
-            .get("projects/" + _this.id + "/users/" + userInfo.id)
-            .then(result => {
-              let data = result.data;
-              alert('操作成功')
-            })
-            .catch(err => {});
-        }
+        _this.getPoint((data) => {
+             if (data.code && data.code > 0) { // productId=20
+                alert('加入超级悬赏共享平台方可进行发布和承接')
+              } else {
+                if(data>0){
+                  let userInfo = localStorage.getItem(superConst.LOGIN_USER_INFO_KEY)
+                  if (userInfo) {
+                    userInfo = JSON.parse (userInfo)
+                  }
+                  if (userInfo) {
+                    _this.$axios
+                      .get("projects/" + _this.id + "/users/" + userInfo.id)
+                      .then(result => {
+                        let data = result.data;
+                        alert('操作成功')
+                      })
+                      .catch(err => {});
+                  }
+                }else{
+                  alert('加入超级悬赏共享平台方可进行发布和承接')
+                }
+              }
+        })
       }
     },
     recommendSubmit () {
