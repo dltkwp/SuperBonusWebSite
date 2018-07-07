@@ -240,7 +240,7 @@
             <div class="row">
               <div class="col-md-3" v-for="(item,index) in orderList" :key="index">
                 <div class="projects-item">
-                  <a href="#">
+                  <router-link :to='{path:"/order/v_detail",query:{id:item.id}}'>
                     <div class="projects-head">
                       <div class="state-suc">已完成</div>
                       <img :src="item.imgUrl">
@@ -256,7 +256,7 @@
                         </li>
                       </ul>
                     </div>
-                  </a>
+                  </router-link>
                 </div>
               </div>
             </div>
