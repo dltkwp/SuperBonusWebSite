@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import mtConst from '@/util/super-const.js'
+import superConst from '@/util/super-const.js'
 
 export default {
     components: {
@@ -84,7 +84,7 @@ export default {
                                 let list = data.list
                                 console.log(list)
                                 _this.$lodash.forEach(list,function(item) {
-                                    item.imgUrl = mtConst.IMAGE_STATIC_URL + item.images
+                                    item.imgUrl = superConst.IMAGE_STATIC_URL + item.images
                                 })
                                 _this.projectsList = _this.$lodash.chunk(list,4)
 

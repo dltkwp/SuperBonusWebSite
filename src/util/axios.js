@@ -4,11 +4,23 @@ export default {
   install: function (Vue) {
     axios.defaults.timeout = 9000 // 响应时间
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8' // 配置请求头
-    axios.defaults.baseURL = superConst.API_BASE_URL
+    // axios.defaults.baseURL = superConst.API_BASE_URL
 
     axios.interceptors.request.use(
       config => {
+        let token = localStorage.getItem(superConst.SUPER_TOKEN_PC_KEY)
+        if (token) {
+          let tokenJson = JSON.parse(token)
+          console.log(tokenJson)
+          config.headers['token'] = tokenJson.token
+        }
         config.headers['X-Requested-With'] = 'XMLHttpRequest'
+        let httpIndex = config.url.indexOf('http://')
+        let httpsIndex = config.url.indexOf('https://')
+        if (httpIndex + httpsIndex === 0) {
+          let origainUrl = config.url
+          config.url = superConst.API_BASE_URL + origainUrl
+        }
         return config
       },
       err => {

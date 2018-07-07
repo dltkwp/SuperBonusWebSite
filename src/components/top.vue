@@ -178,7 +178,7 @@
 
 <script>
 import utils from '@/util/util'
-import mtConst from "@/util/super-const"
+import superConst from "@/util/super-const"
 
 export default {
     data () {

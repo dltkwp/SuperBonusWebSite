@@ -25,7 +25,7 @@
     import Menus from "@/components/menus.vue";
     import Banner from "@/components/banner.vue";
     import Footers from "@/components/footer.vue";
-    import mtConst from "@/util/super-const"
+    import superConst from "@/util/super-const"
     
     export default {
         components: { Top, Menus, Banner, Footers},
@@ -48,7 +48,7 @@
                         .get("news/" + _this.id)
                         .then(result => {
                             let data = result.data
-                            data.imgUrl = mtConst.IMAGE_STATIC_URL + data.imageCode
+                            data.imgUrl = superConst.IMAGE_STATIC_URL + data.imageCode
                             _this.detail = data
                         })
                         .catch(err => {});

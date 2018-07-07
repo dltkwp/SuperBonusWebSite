@@ -44,11 +44,12 @@
 </template>
 
 <script>
-import mtConst from '@/util/super-const.js'
+import superConst from '@/util/super-const.js'
 import vEmpty from '@/components/empty.vue'
 
 export default {
     components: {
+        vEmpty
     },
     mounted() {
         let _this = this
@@ -82,7 +83,7 @@ export default {
                             } else {
                                 let list = data.list
                                 _this.$lodash.forEach(list,function(item) {
-                                    item.imgUrl = mtConst.IMAGE_STATIC_URL + item.imageCode
+                                    item.imgUrl = superConst.IMAGE_STATIC_URL + item.imageCode
                                     item.newstime = _this.$moment(item.createDate).format('YYYY/MM/DD')
                                 })
                                 _this.list = list

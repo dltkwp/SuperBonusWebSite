@@ -69,7 +69,7 @@ import Banner from "@/components/banner.vue"
 import Footers from "@/components/footer.vue"
 import Joiner from "@/components/join.vue"
 import Projects from "@/components/projects.vue"
-import mtConst from "@/util/super-const"
+import superConst from "@/util/super-const"
 import { Page } from 'iview'
 import vEmpty from '@/components/empty.vue'
 
@@ -155,7 +155,7 @@ export default {
                         } else {
                             let list = data.list
                             _this.$lodash.forEach(list,function(item) {
-                                item.imgUrl = mtConst.IMAGE_STATIC_URL + item.images
+                                item.imgUrl = superConst.IMAGE_STATIC_URL + item.images
                             })
                             _this.parentTotalPage = data.total
                             _this.projectsList = list

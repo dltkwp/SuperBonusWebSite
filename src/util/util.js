@@ -30,9 +30,10 @@ const isLogin = function () {
   if (!auth) {
     return false
   } else {
-    if (moment().isAfter(moment(auth.expiredAt))) {
-      return false
-    }
+    // let authJson = JSON.parse(auth)
+    // if (moment().isAfter(moment(authJson.expired))) {
+    //   return false
+    // }
     return true
   }
 }

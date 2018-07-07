@@ -55,7 +55,7 @@
     import Menus from "@/components/menus.vue";
     import Banner from "@/components/banner.vue";
     import Footers from "@/components/footer.vue";
-    import mtConst from '@/util/super-const.js'
+    import superConst from '@/util/super-const.js'
 
     export default {
         components: {
@@ -91,7 +91,7 @@
                                 } else {
                                     let list = data.list
                                     _this.$lodash.forEach(list,function(item) {
-                                        item.imgUrl = mtConst.IMAGE_STATIC_URL + item.imageCode
+                                        item.imgUrl = superConst.IMAGE_STATIC_URL + item.imageCode
                                         item.newstime = _this.$moment(item.createDate).format('YYYY/MM/DD')
                                     })
                                     _this.list = list

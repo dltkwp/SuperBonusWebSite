@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import mtConst from '@/util/super-const.js'
+import superConst from '@/util/super-const.js'
 import vEmpty from '@/components/empty.vue'
 
 export default {
@@ -76,7 +76,7 @@ export default {
                             } else {
                                 let list = data.list
                                 _this.$lodash.forEach(list,function(item) {
-                                    item.imgUrl = mtConst.IMAGE_STATIC_URL + item.images
+                                    item.imgUrl = superConst.IMAGE_STATIC_URL + item.images
                                 })
                                 _this.productList = list
                                 _this.parentTotalPage = data.total

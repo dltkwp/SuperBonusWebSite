@@ -107,7 +107,7 @@ import Menus from "@/components/menus.vue";
 import Banner from "@/components/banner.vue";
 import Footers from "@/components/footer.vue";
 
-import mtConst from "@/util/super-const"
+import superConst from "@/util/super-const"
 import utils from '@/util/util'
 
 
@@ -152,7 +152,7 @@ export default {
                   if (arr.length==0){
                     data.imageUrl = ''
                   }else {
-                    data.imageUrl =  mtConst.IMAGE_STATIC_URL + arr[0]
+                    data.imageUrl =  superConst.IMAGE_STATIC_URL + arr[0]
                   }
               }
               data.st = _this.$moment(data.startDate).format('YYYY/MM/DD')
@@ -169,7 +169,7 @@ export default {
       if (!utils.isLogin()) {
         $("#LoginModal").modal('show')
       } else {
-        let userInfo = localStorage.getItem(mtConst.LOGIN_USER_INFO_KEY)
+        let userInfo = localStorage.getItem(superConst.LOGIN_USER_INFO_KEY)
         if (userInfo) {
           userInfo = JSON.parse (userInfo)
         }
@@ -198,21 +198,17 @@ export default {
         return false
       }
 
-      let userInfo = localStorage.getItem(mtConst.LOGIN_USER_INFO_KEY)
-        if (userInfo) {
-          userInfo = JSON.parse (userInfo)
-        }
-        if (userInfo) {
-          _this.$axios
-            .get("projects/" + _this.id + "/users/" + userInfo.id)
-            .then(result => {
-              let data = result.data;
-              alert('操作成功')
-            })
-            .catch(err => {});
-        }
-
-
+      let loginInfo = localStorage.getItem(superConst.SUPER_TOKEN_PC_KEY)
+      if (loginInfo) {
+        loginInfo = JSON.parse (loginInfo)
+        _this.$axios
+          .get("projects/" + _this.id + "/users/" + loginInfo.userId)
+          .then(result => {
+            let data = result.data;
+            alert('操作成功')
+          })
+          .catch(err => {});
+      }
     }
   }
 };
