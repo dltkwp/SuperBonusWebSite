@@ -5,7 +5,7 @@
     <div class="member">
       <div class="member-top">
         <div class="user-img">
-          <img :src="userInfo.headImage">
+          <img :src="userInfo.headImageUrl">
         </div>
         <div class="user-name"> {{userInfo.nickname}}  </div>
         <div class="user-duty"> {{userInfo.levelName}} </div>
@@ -37,12 +37,13 @@
                 <div class="panel-heading">个人信息</div>
                 <div class="panel-body">
                   <form class="form-horizontal form-bonus">
-                    <!-- <div class="form-goup">
+                    <div class="form-goup">
                       <div class="col-md-12">
-                        <div class="user-photo">
+                        <div class="user-photo" @click="uploadFileClick()">
+                          <img :src="userInfo.headImageUrl" style="height:120px;width:120px;">
                         </div>
                       </div>
-                    </div> -->
+                    </div>
                     <div class="form-group">
                       <label for="inputEmail3" class="col-sm-2 control-label">姓名</label>
                       <div class="col-sm-6">
@@ -222,6 +223,11 @@
                   </a>
                 </div>
               </div>
+
+              <div class="col-md-12" v-if="parentTotalPage==0">
+                  <v-empty :isShow="parentTotalPage==0"></v-empty>
+              </div>
+
             </div>
           </div>
         </div>
@@ -346,6 +352,11 @@
                   </a>
                 </div>
               </div>
+              
+              <div class="col-md-12" v-if="parentTotalPage==0">
+                  <v-empty :isShow="parentTotalPage==0"></v-empty>
+              </div>
+
             </div>
           </div>
         </div>
@@ -470,6 +481,10 @@
                   </a>
                 </div>
               </div>
+
+              <div class="col-md-12" v-if="parentTotalPage==0">
+                  <v-empty :isShow="parentTotalPage==0"></v-empty>
+              </div>
             </div>
           </div>
         </div>
@@ -479,7 +494,7 @@
               <div class="panel-heading no-border">我的订单</div>
             </div>
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-3" v-for="(item,index) in orderList" :key="index">
                 <div class="projects-item">
                   <a href="#">
                     <div class="projects-head">
@@ -528,11 +543,26 @@
                 </div>
               </div>
             </div>
+
+            <div class="col-md-12" v-if="parentTotalPage==0">
+                <v-empty :isShow="parentTotalPage==0"></v-empty>
+            </div>
+
           </div>
         </div>
       </div>
+      <div class="row">
+          <div class="col-md-12">
+              <page :pageSize="pageSize" v-if="parentTotalPage>0" :total="parentTotalPage" show-total :current="pageNum" @on-change="parentCallback"></page>
+          </div>
+      </div>
     </div>
     <footers></footers>
+
+     <form id="uploadImgForm" style="display:none;">
+      <input type="file" name="uploadFile" id="uploadFile" multiple="multiple" style="display:none;" @change="imgUploadFileChange($event)">
+     </form>
+
   </div>
 </template>
 
@@ -543,50 +573,46 @@
   import Footers from "@/components/footer.vue";
 
   import superConst from "@/util/super-const"
+  import { Page } from 'iview'
+  import vEmpty from '@/components/empty.vue'
+
 
   export default {
-    components: { Top, Menus, Banner, Footers },
+    components: { Top, Menus, Banner, Footers, vEmpty },
     data: function() {
       return {
           tabIndex: 0,
           userInfo: {
-            	"address":"1234",
-              "alipay":"12345",
-              "enterprise":"12",
-              "headImage":"https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLYRwKH9gU1OR4pG6rgm7bDETmQdaiay004ZNDK00fGQttRKHFhibGC4EFGInurJWLNNHE4NFMMBBFQ/132",
-              "id":3875155543263232,
-              "levelId":44,
-              "levelName":"普通成员",
-              "nickname":"小才",
-              "point":0.00,
-              "position":"123",
-              "realname":"小才",
-              "sex":1,
-              "username":"13478659803"
+            	"address":"",
+              "alipay":"",
+              "enterprise":"",
+              "headImage":"",
+              "levelId":0,
+              "levelName":"",
+              "nickname":"",
+              "position":"",
+              "realname":"",
+              "sex":-1,
+              "username":""
           },
           editUserInfo: {
-              "address":"1234",
-              "alipay":"12345",
-              "enterprise":"12",
-              "headImage":"https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLYRwKH9gU1OR4pG6rgm7bDETmQdaiay004ZNDK00fGQttRKHFhibGC4EFGInurJWLNNHE4NFMMBBFQ/132",
-              "id":3875155543263232,
-              "levelId":44,
-              "levelName":"普通成员",
-              "nickname":"小才",
-              "point":0.00,
-              "position":"123",
-              "realname":"小才",
-              "sex":1,
-              "username":"13478659803"
+              "address":"",
+              "alipay":"",
+              "enterprise":"",
+              "headImage":"",
+              "levelId":0,
+              "levelName":"",
+              "nickname":"",
+              "position":"",
+              "realname":"",
+              "sex":-1,
+              "username":""
           },
-          release:{
-            pageNo:1,
-            pageSize:15
-          },
-          order:{
-            pageNo:1,
-            pageSize:15
-          }
+          pageNum:1,
+          pageSize:12,
+          parentTotalPage:0,
+          releaseList: [],
+          orderList: []
       }
     },
     mounted: function() {
@@ -606,6 +632,11 @@
             .then(result => {
               let data = result.data
               data.realname = data.realname || data.nickname;
+              if (data.headImage && data.headImage.indexOf('http') == -1) {
+                data.headImageUrl = superConst.IMAGE_STATIC_URL +  data.headImage 
+              } else {
+                data.headImageUrl = data.headImage 
+              }
               _this.userInfo = data
               _this.editUserInfo = data
             })
@@ -616,11 +647,21 @@
         let _this = this
         _this.tabIndex = index
 
-         switch(_this.tabIndex){
-          case 1:{ _this.release.pageNo = 1 ; _this.queryRelease(); } break;
-          case 2:{ _this.release.pageNo = 1 ; _this.queryRelease(); } break;
-          case 3:{ _this.release.pageNo = 1 ; _this.queryRelease(); } break;
-          case 4:{ _this.order.pageNo = 1   ; _this.queryOrders(); } break;
+        switch(_this.tabIndex){
+          case 1:{ _this.pageNum = 1 ; _this.queryRelease(); } break;
+          case 2:{ _this.pageNum = 1 ; _this.queryRelease(); } break;
+          case 3:{ _this.pageNum = 1 ; _this.queryRelease(); } break;
+          case 4:{ _this.pageNum = 1 ; _this.queryOrders(); } break;
+        }
+      },
+      parentCallback(cPage) {
+        let _this = this;
+        _this.pageNo = cPage;
+        switch(_this.tabIndex){
+          case 1:{ _this.queryRelease(); } break;
+          case 2:{ _this.queryRelease(); } break;
+          case 3:{ _this.queryRelease(); } break;
+          case 4:{ _this.queryOrders(); } break;
         }
       },
       userInfoSubmit () {
@@ -634,7 +675,12 @@
         _this.$axios
           .put(superConst.API_BASE_WEBCHAT_URL + "users",_this.editUserInfo)
           .then(result => {
-              alert('操作成功')
+              let res = result.data
+              if (res.code) {
+                alert(res.msg)
+              } else {
+                alert('操作成功')
+              }
           })
           .catch(err => {});
 
@@ -649,8 +695,8 @@
         }
         
         let params = []
-        params.push('pageNo=' + _this.release.pageNo)
-        params.push('pageSize=' + _this.release.pageSize)
+        params.push('pageNum=' + _this.pageNum)
+        params.push('pageSize=' + _this.pageSize)
 
         _this.$axios
           .get(url + '?' + params.join('&'))
@@ -658,11 +704,104 @@
             console.log(result)
           })
           .catch(err => {});
-        
       },
       queryOrders () {
         let _this = this
+
+        let params = []
+        params.push('pageNum=' +   _this.pageNum)
+        params.push('pageSize=' + _this.pageSize)
+
+        _this.$axios
+          .get(superConst.API_BASE_WEBCHAT_URL + 'orders?' + params.join('&'))
+          .then(result => {
+            let data = result.data;
+            if (data && data.list) {
+                if(data.list.length===0) {
+                    _this.parentTotalPage = 0
+                    _this.orderList = []
+                } else {
+                    let list = data.list
+                    _this.$lodash.forEach(list,function(item) {
+                        item.imgUrl = superConst.IMAGE_STATIC_URL + item.images
+                    })
+                    _this.parentTotalPage = data.total
+                    _this.orderList = list
+                }
+            }
+
+          })
+          .catch(err => {});
+      },
+      uploadFileClick () {
+        document.getElementById('uploadFile').value = null
+        if (document.getElementById("uploadFile").value ) {
+          document.getElementById("uploadImgForm").reset();
+        }
+        document.getElementById("uploadFile").click();
+      },
+      imgUploadFileChange (event) {
+        let _this = this;
+        if (event) {
+          var filePath = "";
+          var size = 0;
+          var updatingCount = 0;
+
+          if (event && event.target && event.target.files) {
+            var file = event.target.files[0];
+            size = file.size || 0;
+            filePath = file.name;
+            var index = filePath.lastIndexOf(".");
+            var suffix = filePath.substring(index, filePath.length);
+
+            if (!/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(suffix)) {
+              alert("图片类型必须是.gif,jpeg,jpg,png中的一种");
+              return false;
+            }
+
+            var imgSize = size / 1024 / 1024;
+            if (imgSize > 1) {
+              alert("图片大小超过1M,请上传小于1M的图片.");
+              return false;
+            }
+            var formData = new FormData();
+            formData.append("file", file);
+
+            _this.$axios({
+                url: superConst.API_BASE_WEBCHAT_URL + 'upload',
+                method: 'POST',
+                headers: { 'Content-Type': 'multipart/form-data' },
+                data: formData
+              })
+              .then(result => {
+                let res = result.data
+                if (res.code == 200) {
+                  let imageCode = res.fileCode;
+
+                  _this.editUserInfo.headImage = imageCode
+                  _this.editUserInfo.headImageUrl = superConst.IMAGE_STATIC_URL + imageCode
+
+                  _this.userInfo = _this.editUserInfo
+
+                  alert("操作成功");
+
+                }
+              })
+              .catch(err => {});
+          }
+        }
       }
+
     }
   };
 </script>
+
+<style>
+  .editInfoHeader {
+    width: 120px;
+    height: 120px;
+    margin: 80px auto 20px auto;
+    border: 5px solid #fff;
+    border-radius: 50%;
+  }
+</style>

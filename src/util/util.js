@@ -1,4 +1,4 @@
-let moment = require('./moment')
+// let moment = require('./moment')
 let thkConst = require('./super-const')
 
 const authToLogin = function (res) {

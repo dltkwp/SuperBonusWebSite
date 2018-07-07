@@ -11,15 +11,15 @@ export default {
         let token = localStorage.getItem(superConst.SUPER_TOKEN_PC_KEY)
         if (token) {
           let tokenJson = JSON.parse(token)
-          console.log(tokenJson)
-          config.headers['token'] = tokenJson.token
+          config.headers.token = tokenJson.token
         }
         config.headers['X-Requested-With'] = 'XMLHttpRequest'
-        let httpIndex = config.url.indexOf('http://')
         let httpsIndex = config.url.indexOf('https://')
-        if (httpIndex + httpsIndex === 0) {
-          let origainUrl = config.url
+        let origainUrl = config.url
+        if (httpsIndex === -1) {
           config.url = superConst.API_BASE_URL + origainUrl
+        } else {
+          config.url = origainUrl
         }
         return config
       },

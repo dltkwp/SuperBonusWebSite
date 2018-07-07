@@ -3,43 +3,40 @@
         <div class="container">
             <div class="row">
                 <nav class="navbar navbar-cjxs">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-                            aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <router-link to="/v_index" class="navbar-brand">
-                            <img src="@/assets/img/pic_logo.png">
-                        </router-link>
-                    </div>
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" v-if="!isLoginStatus">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a href="javascript:;;" @click="showLoginModal">登录</a>
-                            </li>
-                            <li class="active">
-                                <a href="javascript:;;" @click="showRegistModal">注册</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                                aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <router-link to="/v_index" class="navbar-brand">
+                                <img src="@/assets/img/pic_logo.png">
+                            </router-link>
+                        </div>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" v-if="!isLoginStatus">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <a href="javascript:;;" @click="showLoginModal">登录</a>
+                                </li>
+                                <li class="active">
+                                    <a href="javascript:;;" @click="showRegistModal">注册</a>
+                                </li>
+                            </ul>
+                        </div>
 
+                        <div class="nav-member-info" v-if="isLoginStatus">
+                            <router-link to="/info/v_info" >
+                                <img src="img/icon_recruit_1.png" class="img-circle img-sm">仰望明天
+                            </router-link>
+                        </div>
 
-                    <div class="nav-member-info" v-if="isLoginStatus">
-                        <a href="javascript:;;"> 
-                            <img src="img/icon_recruit_1.png" class="img-circle img-sm">
-                            仰望明天
-                        </a>
                     </div>
-
-                </div>
                 </nav>
             </div>
         </div>
-
 
             
         <div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
