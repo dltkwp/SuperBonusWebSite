@@ -8,6 +8,7 @@ import underTakeRouter from './undertake'
 import recruitmentRouter from './recruitment'
 import meetRouter from './meet'
 import infoRouter from './info'
+import undertakeReleaseRouter from './release'
 
 import commonRouter from './common'
 
@@ -32,6 +33,6 @@ export default new Router({
     component: IndexVue
   }
   ].concat(joinDetailRouter).concat(usRouter).concat(commonRouter)
-    .concat(underTakeRouter).concat(infoRouter)
+    .concat(underTakeRouter).concat(infoRouter).concat(undertakeReleaseRouter)
     .concat(recruitmentRouter).concat(meetRouter)
 })
