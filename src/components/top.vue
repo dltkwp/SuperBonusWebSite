@@ -53,10 +53,14 @@
                     <div class="form-group">
                         <input type="text" class="form-control form-md" placeholder="输入手机号" maxlength="11" v-model="login.mobile">
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <input type="password" class="form-control form-md" placeholder="请输入密码" maxlength="20" v-model="login.pwd">
+                    </div> -->
+                    <div class="form-group">
+                        <input type="text" class="form-control form-md" placeholder="请输入短信验证码" maxlength="8" v-model="login.checkCode">
+                         <a class="btn btn-black btn-block btn-lg" href="javascript:;;" @click="sendSmsCode">{{showText}}</a>
                     </div>
-                    <div class="form-group hide">
+                    <!-- <div class="form-group hide">
                         <div class="row">
                             <div class="col-md-8">
                                 <input type="text" class="form-control form-md" placeholder="请输入验证码(连续3次输入密码错误显示）">
@@ -65,7 +69,7 @@
                                 <img src="img/captcha.jpeg" class="captcha">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </form>
                 </div>
                 <div class="modal-footer">
@@ -176,6 +180,7 @@
 <script>
 import utils from '@/util/util'
 import superConst from "@/util/super-const"
+let sendTimer = null
 
 export default {
     data () {
@@ -187,7 +192,9 @@ export default {
                 mobile: '',
                 pwd:'',
                 imgCode:'',
-                isShowImageCode: false
+                checkCode: '',
+                isShowImageCode: false,
+                type:'checkCode', // pwd->密码登录 checkCode -> 验证码登录
             },
             regist:{
                 mobile: '',
@@ -195,7 +202,10 @@ export default {
                 imgCode: '',
                 isChecked: 0,
                 isShowImageCode: false
-            }
+            },
+            maxCnt: 60,
+            showText: '获取短信验证码',
+            isSending: false
         }
     },
     mounted () {
@@ -230,29 +240,83 @@ export default {
            }
 
            let mobile = _this.login.mobile
+           let pwd = _this.login.pwd
+           let checkCode = _this.login.checkCode
+
+
            if (!mobile) {
                alert('手机号不可为空')
                return false
            }
 
-           let pwd = _this.login.pwd
-           if (!pwd) {
-               alert('密码不可为空')
-               return false
-           }
+           if (_this.login.type == 'pwd') {
+                if (!pwd) {
+                    alert('密码不可为空')
+                    return false
+                }
+           } else if (_this.login.type == 'checkCode') {
+                if (!checkCode) {
+                    alert('验证码不可为空')
+                    return false
+                }
+            let params = []
+            params.push('phone=' + mobile)
+            params.push('checkCode=' + checkCode)
             _this.$axios
-                .get("login",{
-                    userName: mobile,
-                    pwd: pwd
-                })
+                .get(superConst.API_BASE_WEBCHAT_URL + "login?" + params.join('&'))
                 .then(result => {
                     let data = result.data;
-                    alert('登录成功')
-                    localStorage.setItem(mt.SUPER_TOKEN_PC_KEY,data)
-                    $("#LoginModal").modal('hide')
+                    if (data.code && data.code!=200 && data.code != 201) {
+                        alert(data.msg)
+                    } else {
+                        alert('登录成功')
+                        localStorage.setItem(mt.SUPER_TOKEN_PC_KEY,data)
+                        $("#LoginModal").modal('hide')
+                        window.location.href = '/info/v_info'
+                    }
                 })
                 .catch(err => {});
-            
+           }
+        },
+        sendSmsCode () {
+           let _this = this
+
+           if (!_this.login.mobile) {
+               alert('手机号不可为空')
+               return false
+           }
+
+           if (_this.isSending) {
+               return false
+           }
+
+            _this.$axios
+                .post(superConst.API_BASE_WEBCHAT_URL + "sms/send?phone=" + _this.login.mobile)
+                .then(result => {
+                    let data = result.data;
+                    if (data.code && data.code!= 200 && data.code != 201 && data.code != -1) {
+                        alert(data.msg)
+                    }else{
+                        _this.isSending = true
+                        _this.showText = '60秒后重新获取'
+                        sendTimer = window.setInterval(() => {
+                            _this.maxCnt = _this.maxCnt - 1
+                            if (_this.maxCnt >=0){
+                                _this.isSending = true
+                                _this.showText = _this.maxCnt + '秒后重新获取'
+                            }
+                            if (_this.maxCnt < 0) {
+                                window.clearInterval (sendTimer)
+                                _this.maxCnt = 60
+                                _this.isSending = false
+                                _this.showText = '获取短信验证码'
+                            }
+                        },1000)
+                        alert('短信发送成功')
+                    }
+                })
+                .catch(err => {});
+
         }
     }
 }

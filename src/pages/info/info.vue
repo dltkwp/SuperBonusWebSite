@@ -334,8 +334,8 @@
     },
     mounted: function() {
       let _this = this
-      let tmp = {"expired":1532039707501,"phone":"13478659803","openId":"osA2P4uGDh1FmBXAruKI6cGeTYAI","nikeName":"小才","userId":3875155543263232,"token":"325e04e5-87ea-484a-939e-b3a1bd2c476b"}
-      localStorage.setItem(superConst.SUPER_TOKEN_PC_KEY,JSON.stringify(tmp))
+      // let tmp = {"expired":1532039707501,"phone":"13478659803","openId":"osA2P4uGDh1FmBXAruKI6cGeTYAI","nikeName":"小才","userId":3875155543263232,"token":"325e04e5-87ea-484a-939e-b3a1bd2c476b"}
+      // localStorage.setItem(superConst.SUPER_TOKEN_PC_KEY,JSON.stringify(tmp))
       _this.getUserInfo ()
     },
     methods: {
