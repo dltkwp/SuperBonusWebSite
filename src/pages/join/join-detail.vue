@@ -22,13 +22,34 @@
                 </div>
                 <div class="pages-inner" v-html="vdetail.description"></div>
                 <div class="pages-footer text-center">
-                    <div class="btn btn-danger w200">立即加盟</div>
+                    <div class="btn btn-danger w200" @click="showQrcode()">立即加盟</div>
                 </div>
                 </div>
             </div>
             </div>
         </div>
         <footers></footers>
+
+        <div class="modal fade" id="QrCodeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-dialog-regist" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">请扫描二维码进行支付</h4>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img :src="qrcodeUrl" style="width:70%; margin:30px;">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" @click="paySuccessCallBack">已付款</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
   </div>
 </template>
 
@@ -38,13 +59,11 @@ import Menus from "@/components/menus.vue";
 import Banner from "@/components/banner.vue";
 import Footers from "@/components/footer.vue";
 
+import superConst from "@/util/super-const"
+import utils from '@/util/util'
+
 export default {
-  components: {
-    Top,
-    Menus,
-    Banner,
-    Footers
-  },
+  components: { Top, Menus, Banner, Footers },
   data: function() {
     return {
         id: '',
@@ -54,7 +73,8 @@ export default {
         },
         productList: [],
         pageNo: 1,
-        pageSize: 3
+        pageSize: 3,
+        qrcodeUrl: ''
     };
   },
   mounted: function() {
@@ -115,7 +135,59 @@ export default {
         setTimeout(() => {
             window.location.reload()
         },200)
+    },
+    showQrcode () {
+        let _this = this
+
+        if (!utils.isLogin()) {
+            $("#LoginModal").modal('show')
+        } else {
+            let userInfo = localStorage.getItem(superConst.SUPER_TOKEN_PC_KEY)
+            if (userInfo) {
+                userInfo = JSON.parse (userInfo)
+
+                let params = {
+                    openId: userInfo.openId,
+                    productId: _this.id
+                }
+                _this.$axios
+                    .post(superConst.API_BASE_WEBCHAT_URL + "pay/qrcode", params)
+                    .then(result => {
+                        let data = result.data;
+                        if (data.code && data.code!= 200 && data.code != 201) {
+                            alert(data.msg)
+                        }else{
+                            _this.createQrcode(data.code_url)
+                        }
+                    })
+                    .catch(err => {});
+            }
+        }
+    },
+    createQrcode (content) {
+        let _this = this
+        let params = []
+            params.push('width=230')
+            params.push('height=230')
+            params.push('content=' + content)
+        _this.$axios
+            .get(superConst.API_BASE_WEBCHAT_URL + "qrcode?" + params.join('&'))
+            .then(result => {
+                let data = result.data;
+                if (data.code && data.code!= 200 && data.code != 201) {
+                    alert(data.msg)
+                }else{
+                    _this.qrcodeUrl = "data:image/png;base64," + data.qrCodeBase64
+                    $("#QrCodeModal").modal("show")
+                }
+            })
+            .catch(err => {});
+
+    },
+    paySuccessCallBack () {
+        window.location.href = '/info/v_info'
     }
+
   }
 };
 </script>

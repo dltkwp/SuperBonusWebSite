@@ -155,7 +155,7 @@ export default {
   methods: {
     confirmSubmit () {
       let _this = this
-
+      window.location.href = '/join/v_detail?id=20'
     },
     showRecommendModal () {
       let _this = this
