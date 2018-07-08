@@ -29,7 +29,8 @@
 
                         <div class="nav-member-info" v-if="isLoginStatus">
                             <router-link to="/info/v_info" >
-                                <img src="img/icon_recruit_1.png" class="img-circle img-sm">仰望明天
+                                <img src="img/icon_recruit_1.png" class="img-circle img-smn hide">
+                                {{userInfo.realName||userInfo.nikeName}}
                             </router-link>
                         </div>
 
@@ -165,6 +166,10 @@ export default {
     mounted () {
         let _this = this
         _this.isLoginStatus = utils.isLogin()
+        let userInfo = localStorage.getItem(superConst.SUPER_TOKEN_PC_KEY)
+        if (userInfo) {
+            _this.userInfo = JSON.parse(userInfo)
+        }
     },
     methods: {
         showLoginModal () {
@@ -224,7 +229,7 @@ export default {
                         alert(data.msg)
                     } else {
                         alert('登录成功')
-                        localStorage.setItem(mt.SUPER_TOKEN_PC_KEY,data)
+                        localStorage.setItem(superConst.SUPER_TOKEN_PC_KEY,data)
                         $("#LoginModal").modal('hide')
                         window.location.href = '/info/v_info'
                     }

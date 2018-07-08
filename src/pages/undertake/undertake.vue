@@ -22,7 +22,7 @@
                             <div class="projects-item">
                                 <router-link :to="{path:'/undertake/v_undertakedetail',query:{id: item.id}}">
                                     <div class="projects-head">
-                                    <img :src="item.imgUrl">
+                                        <img :src="item.imgUrl" v-if="item.images&&item.images.length>0">
                                     </div>
                                     <div class="projects-body">
                                     <div class="projects-title">{{item.projectName}}</div>
