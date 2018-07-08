@@ -21,19 +21,34 @@
                                 <li>
                                     <a href="javascript:;;" @click="showLoginModal">登录</a>
                                 </li>
-                                <li class="active">
+                                <!-- <li class="active">
                                     <a href="javascript:;;" @click="showRegistModal">注册</a>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
 
                         <div class="nav-member-info" v-if="isLoginStatus">
-                            <router-link to="/info/v_info" >
-                                <img src="img/icon_recruit_1.png" class="img-circle img-smn hide">
-                                {{userInfo.realName||userInfo.nikeName}}
-                            </router-link>
+                            <div class="dropdown profile-element">
+                                <a data-toggle="dropdown" href="javascript:;;" class="dropdown-toggle" aria-expanded="false">
+                                    <span class="clear">
+                                        <span class="block m-t-xs">
+                                            <strong class="font-bold"> {{userInfo.realName||userInfo.nikeName}}</strong>
+                                        </span> 
+                                        <span class="text-muted text-xs block"> 
+                                            <b class="caret"></b>
+                                        </span>
+                                    </span>
+                                </a> 
+                                <ul class="dropdown-menu  m-t-xs">
+                                    <li>
+                                      <router-link to="/info/v_info" > 个人资料  </router-link>
+                                    </li> 
+                                    <li>
+                                        <a href="javascript:;;" @click="logout">退出</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-
                     </div>
                 </nav>
             </div>
@@ -75,9 +90,9 @@
                 </div>
                 <div class="modal-footer">
                 <a  class="btn btn-black btn-block btn-lg" href="javascript:;;" @click="loginSubmit">登录</a>
-                <p class="text-center mar-t-15"> 
-                    <a href="javascript:;;" @click="goToRegist" class="font-black font-16 text-center">还没有账号？立即注册</a>
-                </p>
+                    <!-- <p class="text-center mar-t-15"> 
+                        <a href="javascript:;;" @click="goToRegist" class="font-black font-16 text-center">还没有账号？立即注册</a>
+                    </p> -->
                 </div>
             </div>
             </div>
@@ -172,6 +187,11 @@ export default {
         }
     },
     methods: {
+        logout () {
+            let _this = this
+            localStorage.setItem(superConst.SUPER_TOKEN_PC_KEY,'')
+            window.location.href = '/v_index'
+        },
         showLoginModal () {
             $("#LoginModal").modal('show')
         },
@@ -229,7 +249,7 @@ export default {
                         alert(data.msg)
                     } else {
                         alert('登录成功')
-                        localStorage.setItem(superConst.SUPER_TOKEN_PC_KEY,data)
+                        localStorage.setItem(superConst.SUPER_TOKEN_PC_KEY,JSON.stringify(data))
                         $("#LoginModal").modal('hide')
                         window.location.href = '/info/v_info'
                     }

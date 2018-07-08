@@ -117,7 +117,7 @@
                       <div class="state-cancel" v-if="item.status == 'cancel'">已取消</div>
                       <div class="state-cancel" v-if="item.status == 'wait'">待审核</div>
                       
-                      <img :src="item.imgUrl" v-if="item.imgUrl">
+                      <img :src="item.imgUrl" v-if="item.images">
                     </div>
                     <div class="projects-body">
                       <div class="projects-title">{{item.projectName}} </div>
@@ -127,7 +127,7 @@
                       <ul>
                         <li>
                           <p class="projects-footer-title">悬赏标价</p>
-                          <p class="projects-footer-price">没有。。</p>
+                          <p class="projects-footer-price" v-html="item.pricing"></p>
                         </li>
                         <li>
                           <p class="projects-footer-title">赏金</p>
@@ -160,7 +160,7 @@
                       <div class="state-cancel" v-if="item.status == 'cancel'">已取消</div>
                       <div class="state-cancel" v-if="item.status == 'wait'">待审核</div>
                       
-                      <img :src="item.imgUrl">
+                      <img :src="item.imgUrl" v-if="item.images">
                     </div>
                     <div class="projects-body">
                       <div class="projects-title">{{item.projectName}} </div>
@@ -170,7 +170,7 @@
                       <ul>
                         <li>
                           <p class="projects-footer-title">悬赏标价</p>
-                          <p class="projects-footer-price">没有。。</p>
+                          <p class="projects-footer-price"  v-html="item.pricing"></p>
                         </li>
                         <li>
                           <p class="projects-footer-title">赏金</p>
@@ -204,17 +204,17 @@
                       <div class="state-cancel" v-if="item.status == 'cancel'">已取消</div>
                       <div class="state-cancel" v-if="item.status == 'wait'">待审核</div>
                       
-                      <img :src="item.imgUrl">
+                      <img :src="item.imgUrl"  v-if="item.images">
                     </div>
                     <div class="projects-body">
                       <div class="projects-title">{{item.projectName}} </div>
                       <div class="projects-info"> {{item.intoduction}} </div>
                     </div>
-                    <div class="projects-footer">
+                    <div class="projects-footer"> 
                       <ul>
                         <li>
                           <p class="projects-footer-title">悬赏标价</p>
-                          <p class="projects-footer-price">没有。。</p>
+                          <p class="projects-footer-price"  v-html="item.pricing"></p>
                         </li>
                         <li>
                           <p class="projects-footer-title">赏金</p>
@@ -243,7 +243,7 @@
                   <router-link :to='{path:"/order/v_detail",query:{id:item.id}}'>
                     <div class="projects-head">
                       <div class="state-suc">已完成</div>
-                      <img :src="item.imgUrl">
+                      <img :src="item.imgUrl"  v-if="item.images">
                     </div>
                     <div class="projects-body">
                       <div class="projects-title">{{item.productName}} </div>
@@ -334,8 +334,8 @@
     },
     mounted: function() {
       let _this = this
-      let tmp = {"expired":1532039707501,"phone":"13478659803","openId":"osA2P4uGDh1FmBXAruKI6cGeTYAI","nikeName":"小才","userId":3875155543263232,"token":"325e04e5-87ea-484a-939e-b3a1bd2c476b"}
-      localStorage.setItem(superConst.SUPER_TOKEN_PC_KEY,JSON.stringify(tmp))
+      // let tmp = {"expired":1532039707501,"phone":"13478659803","openId":"osA2P4uGDh1FmBXAruKI6cGeTYAI","nikeName":"小才","userId":3875155543263232,"token":"325e04e5-87ea-484a-939e-b3a1bd2c476b"}
+      // localStorage.setItem(superConst.SUPER_TOKEN_PC_KEY,JSON.stringify(tmp))
       _this.getUserInfo ()
     },
     methods: {
