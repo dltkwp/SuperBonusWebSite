@@ -105,7 +105,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-2 control-label">产品数量</label>
+                                    <label for="inputEmail3" class="col-sm-2 control-label">产品数量*</label>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control" placeholder="请填写产品数量"   maxlength="5" v-model="projectNumber">
                                     </div>
@@ -259,6 +259,14 @@
                 }
                 if (!intoduction) {
                     Message({ message: '描述不可为空', type: 'warning' })
+                    return false;
+                } 
+                if (!projectNumber) {
+                    Message({ message: '产品数量不可为空', type: 'warning' })
+                    return false;
+                } 
+                if (!numberValidae(projectNumber)) {
+                    Message({ message: '产品数量格式不正确', type: 'warning' })
                     return false;
                 }
 
