@@ -385,7 +385,7 @@
         let _this = this 
         let username = _this.editUserInfo.username
         if (!username) {
-          alert('用户名不可为空')
+           Message({ message: "用户名不可为空", type: 'warning' })
           return false
         }
 
@@ -394,9 +394,9 @@
           .then(result => {
               let res = result.data
               if (res.code) {
-                alert(res.msg)
+                Message({ message: res.msg, type: 'warning' })
               } else {
-                alert('操作成功')
+                Message({ message: '操作成功', type: 'success' })
               }
           })
           .catch(err => {});
@@ -487,13 +487,13 @@
             var suffix = filePath.substring(index, filePath.length);
 
             if (!/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(suffix)) {
-              alert("图片类型必须是.gif,jpeg,jpg,png中的一种");
+               Message({ message: "图片类型必须是.gif,jpeg,jpg,png中的一种", type: 'warning' })
               return false;
             }
 
             var imgSize = size / 1024 / 1024;
             if (imgSize > 1) {
-              alert("图片大小超过1M,请上传小于1M的图片.");
+              Message({ message: "图片大小超过1M,请上传小于1M的图片.", type: 'warning' })
               return false;
             }
             var formData = new FormData();
@@ -515,7 +515,7 @@
 
                   _this.userInfo = _this.editUserInfo
 
-                  alert("操作成功");
+                  Message({ message: '上传图片成功', type: 'success' })
 
                 }
               })

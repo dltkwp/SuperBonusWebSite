@@ -155,7 +155,7 @@ export default {
                     .then(result => {
                         let data = result.data;
                         if (data.code && data.code!= 200 && data.code != 201) {
-                            alert(data.msg)
+                           Message({ message: data.msg, type: 'error' })
                         }else{
                             _this.createQrcode(data.code_url)
                         }
@@ -175,7 +175,7 @@ export default {
             .then(result => {
                 let data = result.data;
                 if (data.code && data.code!= 200 && data.code != 201) {
-                    alert(data.msg)
+                    Message({ message: data.msg, type: 'error' })
                 }else{
                     _this.qrcodeUrl = "data:image/png;base64," + data.qrCodeBase64
                     $("#QrCodeModal").modal("show")

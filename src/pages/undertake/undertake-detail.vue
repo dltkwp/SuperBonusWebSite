@@ -129,6 +129,7 @@ import Footers from "@/components/footer.vue";
 
 import superConst from "@/util/super-const"
 import utils from '@/util/util'
+import { mobileValidate, numberValidae, pwdValidate } from "@/util/validate"
 
 
 
@@ -231,9 +232,9 @@ export default {
                       .then(result => {
                         let data = result.data;
                         if (data.code!= 200 && data.code != 201) {
-                          alert(data.msg)
+                          Message({ message: data.msg, type: 'error' })
                         }else{
-                          alert('操作成功')
+                          Message({ message: '操作成功', type: 'success' })
                         }
                       })
                       .catch(err => {});
@@ -251,11 +252,11 @@ export default {
       let moible = _this.recommend.mobile
 
       if (!name) {
-        alert('名称不可为空') 
+        Message({ message: "名称不可为空", type: 'warning' })
         return false
       }
-      if (!moible) {
-        alert('手机号不可为空') 
+      if (!mobileValidate(moible)) {
+        Message({ message: "手机号格式不正确", type: 'warning' })
         return false
       }
 
@@ -271,9 +272,9 @@ export default {
           .then(result => {
             let data = result.data;
              if (data.code!= 200 && data.code != 201) {
-                alert(data.msg)
+                Message({ message: data.msg, type: 'error' })
               }else{
-                alert('操作成功')
+                Message({ message: '操作成功', type: 'success' })
               }
           })
           .catch(err => {});

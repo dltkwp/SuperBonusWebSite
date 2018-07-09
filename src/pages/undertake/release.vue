@@ -179,6 +179,9 @@
     import superConst from "@/util/super-const"
     import utils from '@/util/util'
     import _ from '@/util/lodash'
+    import { mobileValidate, numberValidae, pwdValidate } from "@/util/validate"
+
+
     export default {
         components: {
             Top,  Menus, Banner, Footers
@@ -229,31 +232,31 @@
                 let competitor = _this.competitor
 
                 if (!company) {
-                    alert('公司名称不可为空')
+                    Message({ message: '公司名称不可为空', type: 'warning' })
                     return false;
                 }
                 if (!contact) {
-                    alert('联系人不可为空')
+                    Message({ message: '联系人不可为空', type: 'warning' })
                     return false;
                 }
-                if (!phone) {
-                    alert('手机号不可为空')
+                if (!mobileValidate(phone)) {
+                    Message({ message: '手机号格式不正确', type: 'warning' })
                     return false;
                 }
                 if (!projectName) {
-                    alert('项目名称不可为空')
+                    Message({ message: '项目名称不可为空', type: 'warning' })
                     return false;
                 } 
                 if (!originPrice) {
-                    alert('产品价格不可为空')
+                    Message({ message: '产品价格不可为空', type: 'warning' })
                     return false;
                 } 
                 if (!price) {
-                    alert('平台价格不可为空')
+                    Message({ message: '平台价格不可为空', type: 'warning' })
                     return false;
                 }
                 if (!intoduction) {
-                    alert('描述不可为空')
+                    Message({ message: '描述不可为空', type: 'warning' })
                     return false;
                 }
 
@@ -294,10 +297,10 @@
                     .then(result => {
                         let res = result.data
                         if (res.code && res.code != 200 && res.code != 201) {
-                           alert(res.msg || '有错误')
+                           Message({ message: data.msg, type: 'error' })
                         } else {
-                            alert('操作成功')
-                            window.location.href = '/info/v_info'
+                           Message({ message: '操作成功', type: 'success' })
+                           window.location.href = '/info/v_info'
                         }
                     })
                     .catch(err => {});
@@ -329,13 +332,13 @@
                     var suffix = filePath.substring(index, filePath.length);
 
                     if (!/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(suffix)) {
-                    alert("图片类型必须是.gif,jpeg,jpg,png中的一种");
+                    Message({ message: '图片类型必须是.gif,jpeg,jpg,png中的一种', type: 'warning' })
                     return false;
                     }
 
                     var imgSize = size / 1024 / 1024;
                     if (imgSize > 1) {
-                    alert("图片大小超过1M,请上传小于1M的图片.");
+                    Message({ message: '图片大小超过1M,请上传小于1M的图片.', type: 'warning' })
                     return false;
                     }
                     var formData = new FormData();

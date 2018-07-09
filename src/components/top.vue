@@ -73,19 +73,15 @@
                         <input type="password" class="form-control form-md" placeholder="请输入密码" maxlength="20" v-model="login.pwd">
                     </div> -->
                     <div class="form-group">
-                        <input type="text" class="form-control form-md" placeholder="请输入短信验证码" maxlength="8" v-model="login.checkCode">
-                         <a class="btn btn-black btn-block btn-lg" href="javascript:;;" @click="sendSmsCode">{{showText}}</a>
-                    </div>
-                    <!-- <div class="form-group hide">
-                        <div class="row">
+                         <div class="row">
                             <div class="col-md-8">
-                                <input type="text" class="form-control form-md" placeholder="请输入验证码(连续3次输入密码错误显示）">
+                               <input type="text" class="form-control form-md" placeholder="请输入短信验证码" maxlength="8" v-model="login.checkCode">
                             </div>
                             <div class="col-md-4">
-                                <img src="img/captcha.jpeg" class="captcha">
+                                <a class="btn btn-black btn-block btn-lg" href="javascript:;;" @click="sendSmsCode">{{showText}}</a>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                 </form>
                 </div>
                 <div class="modal-footer">
@@ -150,6 +146,9 @@
 <script>
 import utils from '@/util/util'
 import superConst from "@/util/super-const"
+import { mobileValidate, numberValidae, pwdValidate } from "@/util/validate"
+import { Message } from 'element-ui'
+
 let sendTimer = null
 
 export default {
@@ -223,19 +222,19 @@ export default {
            let checkCode = _this.login.checkCode
 
 
-           if (!mobile) {
-               alert('手机号不可为空')
+           if (!mobileValidate(mobile)) {
+                Message({ message: '手机号格式不正确', type: 'warning' })
                return false
            }
 
            if (_this.login.type == 'pwd') {
-                if (!pwd) {
-                    alert('密码不可为空')
+                if (!pwdValidate(pwd)) {
+                    Message({ message: '密码格式不正确', type: 'warning' })
                     return false
                 }
            } else if (_this.login.type == 'checkCode') {
-                if (!checkCode) {
-                    alert('验证码不可为空')
+                if (!numberValidae(checkCode)) {
+                    Message({ message: '验证码格式不正确', type: 'warning' })
                     return false
                 }
             let params = []
@@ -246,9 +245,9 @@ export default {
                 .then(result => {
                     let data = result.data;
                     if (data.code && data.code!=200 && data.code != 201) {
-                        alert(data.msg)
+                        Message({ message: data.msg, type: 'error' })
                     } else {
-                        alert('登录成功')
+                        Message({ message: '登录成功', type: 'success' })
                         localStorage.setItem(superConst.SUPER_TOKEN_PC_KEY,JSON.stringify(data))
                         $("#LoginModal").modal('hide')
                         window.location.href = '/info/v_info'
@@ -260,8 +259,8 @@ export default {
         sendSmsCode () {
            let _this = this
 
-           if (!_this.login.mobile) {
-               alert('手机号不可为空')
+           if (!mobileValidate(_this.login.mobile)) {
+                Message({ message: '手机号格式不正确', type: 'warning' })
                return false
            }
 
@@ -291,7 +290,7 @@ export default {
                                 _this.showText = '获取短信验证码'
                             }
                         },1000)
-                        alert('短信发送成功')
+                        Message({ message: '短信发送成功', type: 'warning' })
                     }
                 })
                 .catch(err => {});

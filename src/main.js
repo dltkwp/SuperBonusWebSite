@@ -4,6 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import './util'
+import { Message } from 'element-ui'
+
+Vue.use(Message)
 
 Vue.config.productionTip = false
 
