@@ -39,8 +39,7 @@
                         <label class="form-label font-lightgrey">数量</label>
                         <span>{{vdetail.projectNumber}}</span>
                       </div>
-                      <div class="flexbox flexstart mar-t-15">
-
+                      <div class="flexbox flexstart mar-t-15" v-if="vdetail.st">
                           <label class="form-label font-lightgrey">有效期</label>
                           <span>{{vdetail.st}}~{{vdetail.et}}</span>
                         </div>
@@ -192,8 +191,8 @@ export default {
                     data.imageUrl =  superConst.IMAGE_STATIC_URL + arr[0]
                   }
               }
-              data.st = _this.$moment(data.startDate).format('YYYY/MM/DD')
-              data.et = _this.$moment(data.endDate).format('YYYY/MM/DD')
+              data.st = data.startDate ? _this.$moment(data.startDate).format('YYYY/MM/DD') : ''
+              data.et = data.endDate ? _this.$moment(data.endDate).format('YYYY/MM/DD') : ''
               _this.vdetail = data;
             }
           })
@@ -233,7 +232,7 @@ export default {
                       .post(superConst.API_BASE_WEBCHAT_URL + "projects/" + _this.id + "/users/" + userInfo.userId)
                       .then(result => {
                         let data = result.data;
-                        if (data.code!= 200 && data.code != 201) {
+                        if (data.code && data.code!= 200 && data.code != 201) {
                           Message({ message: data.msg, type: 'error' })
                         }else{
                           Message({ message: '操作成功', type: 'success' })
@@ -273,7 +272,7 @@ export default {
           .post(superConst.API_BASE_WEBCHAT_URL + "projects/" + _this.id + "/recommend?" + param.join('&'))
           .then(result => {
             let data = result.data;
-             if (data.code!= 200 && data.code != 201) {
+             if (data.code && data.code!= 200 && data.code != 201) {
                 Message({ message: data.msg, type: 'error' })
               }else{
                 Message({ message: '操作成功', type: 'success' })

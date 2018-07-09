@@ -84,7 +84,10 @@ export default {
                                 let list = data.list
                                 console.log(list)
                                 _this.$lodash.forEach(list,function(item) {
-                                    item.imgUrl = superConst.IMAGE_STATIC_URL + item.images
+                                    if(item.images){
+                                        let imageArr = item.images.split(',')
+                                        item.imgUrl = superConst.IMAGE_STATIC_URL + imageArr[0]
+                                    }
                                 })
                                 _this.projectsList = _this.$lodash.chunk(list,4)
 

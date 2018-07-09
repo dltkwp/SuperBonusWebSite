@@ -431,7 +431,10 @@
                     let list = data.list
                     _this.$lodash.forEach(list,function(item) {
                         item.createDateStr = _this.$moment(item.createDate).format('YYYY/MM/DD HH:mm')
-                        item.imgUrl = superConst.IMAGE_STATIC_URL + item.images
+                        if(item.images){
+                          let imageArr = item.images.split(',')
+                          item.imgUrl = superConst.IMAGE_STATIC_URL + imageArr[0]
+                        }
                     })
                     _this.parentTotalPage = data.total
                     _this.releaseList = list
@@ -459,7 +462,10 @@
                     let list = data.list
                     _this.$lodash.forEach(list,function(item) {
                         item.createDateStr = _this.$moment(item.createDate).format('YYYY/MM/DD HH:mm')
-                        item.imgUrl = superConst.IMAGE_STATIC_URL + item.images
+                        if(item.images){
+                          let imageArr = item.images.split(',')
+                          item.imgUrl = superConst.IMAGE_STATIC_URL + imageArr[0]
+                        }
                     })
                     _this.parentTotalPage = data.total
                     _this.orderList = list

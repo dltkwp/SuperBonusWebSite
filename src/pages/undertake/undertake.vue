@@ -155,7 +155,10 @@ export default {
                         } else {
                             let list = data.list
                             _this.$lodash.forEach(list,function(item) {
-                                item.imgUrl = superConst.IMAGE_STATIC_URL + item.images
+                                if(item.images){
+                                    let imageArr = item.images.split(',')
+                                    item.imgUrl = superConst.IMAGE_STATIC_URL + imageArr[0]
+                                }
                             })
                             _this.parentTotalPage = data.total
                             _this.projectsList = list
