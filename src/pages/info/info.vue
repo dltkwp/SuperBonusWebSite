@@ -358,6 +358,8 @@
               _this.editUserInfo = data
             })
             .catch(err => {});
+        }else {
+          $("#LoginModal").modal('show')
         }
       },
       tabChange (index) {

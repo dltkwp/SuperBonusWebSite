@@ -273,7 +273,7 @@ export default {
                 .then(result => {
                     let data = result.data;
                     if (data.code && data.code!= 200 && data.code != 201 && data.code != -1) {
-                        alert(data.msg)
+                        Message({ message: data.msg, type: 'error' })
                     }else{
                         _this.isSending = true
                         _this.showText = '60秒后重新获取'
