@@ -61,6 +61,7 @@ import Footers from "@/components/footer.vue";
 
 import superConst from "@/util/super-const"
 import utils from '@/util/util'
+import { Message } from 'element-ui'
 
 export default {
   components: { Top, Menus, Banner, Footers },

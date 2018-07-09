@@ -22,7 +22,7 @@
         <li :class="{active:parentKey=='ConnectUs'}">
           <router-link to="/common/v_connect">联系我们</router-link>
         </li>
-        <li>
+        <li class="hide">
           <div class="form-group has-black has-feedback">
             <label class="control-label sr-only" for="inputSuccess5">Hidden label</label>
             <input type="text" class="form-control" id="inputSuccess5" aria-describedby="inputSuccess5Status">

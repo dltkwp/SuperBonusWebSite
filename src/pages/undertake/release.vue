@@ -179,6 +179,8 @@
     import superConst from "@/util/super-const"
     import utils from '@/util/util'
     import _ from '@/util/lodash'
+    
+    import { Message } from 'element-ui'
     import { mobileValidate, numberValidae, pwdValidate } from "@/util/validate"
 
 
@@ -287,8 +289,6 @@
                    param.images = tmpArr.join(',');
                 }
 
-                console.log(param)
-
                  _this.$axios({
                         url: superConst.API_BASE_WEBCHAT_URL + 'projects/apply',
                         method: 'POST',
@@ -300,11 +300,12 @@
                            Message({ message: data.msg, type: 'error' })
                         } else {
                            Message({ message: '操作成功', type: 'success' })
-                           window.location.href = '/info/v_info'
+                           setTimeout(function () {
+                               window.location.href = '/info/v_info'
+                           }, 1000)
                         }
                     })
                     .catch(err => {});
-
             },
             deleteImg (index) {
                 let _this = this

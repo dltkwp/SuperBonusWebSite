@@ -130,6 +130,8 @@ import Footers from "@/components/footer.vue";
 import superConst from "@/util/super-const"
 import utils from '@/util/util'
 import { mobileValidate, numberValidae, pwdValidate } from "@/util/validate"
+import { Message } from 'element-ui'
+
 
 
 
