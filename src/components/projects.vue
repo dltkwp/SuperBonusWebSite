@@ -74,7 +74,7 @@ export default {
                 params.push('pageNum=' + _this.pageNo)
                 params.push('pageSize=' + _this.pageSize)
                  _this.$axios
-                    .get("projects?" + params.join('&'))
+                    .get("projectsOnline?" + params.join('&'))
                     .then(result => {
                         let data = result.data;
                         if (data && data.list) {

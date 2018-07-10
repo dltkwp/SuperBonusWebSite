@@ -237,23 +237,25 @@ export default {
                     Message({ message: '验证码格式不正确', type: 'warning' })
                     return false
                 }
-            let params = []
-            params.push('phone=' + mobile)
-            params.push('checkCode=' + checkCode)
-            _this.$axios
-                .get(superConst.API_BASE_WEBCHAT_URL + "login?" + params.join('&'))
-                .then(result => {
-                    let data = result.data;
-                    if (data.code && data.code!=200 && data.code != 201) {
-                        Message({ message: data.msg, type: 'error' })
-                    } else {
-                        Message({ message: '登录成功', type: 'success' })
-                        localStorage.setItem(superConst.SUPER_TOKEN_PC_KEY,JSON.stringify(data))
-                        $("#LoginModal").modal('hide')
-                        window.location.href = '/info/v_info'
-                    }
-                })
-                .catch(err => {});
+                let params = []
+                params.push('phone=' + mobile)
+                params.push('checkCode=' + checkCode)
+                _this.$axios
+                    .get(superConst.API_BASE_WEBCHAT_URL + "login?" + params.join('&'))
+                    .then(result => {
+                        let data = result.data;
+                        if (data.code && data.code!=200 && data.code != 201) {
+                            Message({ message: data.msg, type: 'error' })
+                        } else {
+                            Message({ message: '登录成功', type: 'success' })
+                            localStorage.setItem(superConst.SUPER_TOKEN_PC_KEY,JSON.stringify(data))
+                            _this.getUserDetail(function () {
+                                $("#LoginModal").modal('hide')
+                                window.location.href = '/info/v_info'
+                            })
+                        }
+                    })
+                    .catch(err => {});
            }
         },
         sendSmsCode () {
@@ -295,7 +297,18 @@ export default {
                 })
                 .catch(err => {});
 
+        },
+        getUserDetail (callback) {
+            _this.$axios
+                .post(superConst.API_BASE_WEBCHAT_URL + "users/login")
+                .then(result => {
+                    let data = result.data;
+                    localStorage.setItem(superConst.SUPER_TOKEN_PC_KEY,JSON.stringify(data))
+                    callback && callback()
+                })
+                .catch(err => {});
         }
+
     }
 }
 </script>

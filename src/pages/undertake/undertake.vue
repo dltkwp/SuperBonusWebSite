@@ -145,7 +145,7 @@ export default {
                     }
                 }
                 _this.$axios
-                .get("projects?" + params.join('&'))
+                .get("projectsOnline?" + params.join('&'))
                 .then(result => {
                     let data = result.data;
                     if (data && data.list) {
