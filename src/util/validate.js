@@ -4,7 +4,7 @@ export function mobileValidate (str) {
   return reg.test(str)
 }
 
-export function numberValidae (str) {
+export function numberValidate (str) {
   const reg = /^[0-9]*$/
   return reg.test(str)
 }

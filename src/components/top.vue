@@ -78,7 +78,7 @@
                                <input type="text" class="form-control form-md" placeholder="请输入短信验证码" maxlength="8" v-model="login.checkCode">
                             </div>
                             <div class="col-md-4">
-                                <a class="btn btn-black btn-block btn-lg" href="javascript:;;" @click="sendSmsCode">{{showText}}</a>
+                                <div class="btn btn-danger btn-block btn-md" @click="sendSmsCode">{{showText}}</div>
                             </div>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
 <script>
 import utils from '@/util/util'
 import superConst from "@/util/super-const"
-import { mobileValidate, numberValidae, pwdValidate } from "@/util/validate"
+import { mobileValidate, numberValidate, pwdValidate } from "@/util/validate"
 import { Message } from 'element-ui'
 
 let sendTimer = null
@@ -226,14 +226,17 @@ export default {
                 Message({ message: '手机号格式不正确', type: 'warning' })
                return false
            }
-
            if (_this.login.type == 'pwd') {
                 if (!pwdValidate(pwd)) {
                     Message({ message: '密码格式不正确', type: 'warning' })
                     return false
                 }
            } else if (_this.login.type == 'checkCode') {
-                if (!numberValidae(checkCode)) {
+                if(!checkCode) {
+                    Message({ message: '验证码格式不可为空', type: 'warning' })
+                    return false
+                }
+                if (!numberValidate(checkCode)) {
                     Message({ message: '验证码格式不正确', type: 'warning' })
                     return false
                 }
