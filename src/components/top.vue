@@ -252,10 +252,16 @@ export default {
                         } else {
                             Message({ message: '登录成功', type: 'success' })
                             localStorage.setItem(superConst.SUPER_TOKEN_PC_KEY,JSON.stringify(data))
-                            _this.getUserDetail(function () {
-                                $("#LoginModal").modal('hide')
+
+                            $("#LoginModal").modal('hide')
+                            setTimeout(() => function(){
                                 window.location.href = '/info/v_info'
-                            })
+                            },800)
+
+                            // _this.getUserDetail(function () {
+                            //     $("#LoginModal").modal('hide')
+                            //     window.location.href = '/info/v_info'
+                            // })
                         }
                     })
                     .catch(err => {});
@@ -302,9 +308,11 @@ export default {
 
         },
         getUserDetail (callback) {
+            let _this = this
             _this.$axios
-                .post(superConst.API_BASE_WEBCHAT_URL + "users/login")
+                .get(superConst.API_BASE_WEBCHAT_URL + "users/login")
                 .then(result => {
+                    debugger
                     let data = result.data;
                     localStorage.setItem(superConst.SUPER_TOKEN_PC_KEY,JSON.stringify(data))
                     callback && callback()
